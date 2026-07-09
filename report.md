@@ -7,6 +7,9 @@
 原始数据文件：
 `~/Documents/Last30Days/ai-agent-developer-interview-questions-and-requirements-for-programmer-roles-raw-v3.md`
 
+交互版 HTML：
+`index.html` 包含每道题的折叠参考答案、搜索、分类筛选、展开全部和收起全部。
+
 ## 核心结论
 
 AI Agent 开发岗位的面试重点已经从“会调 LLM API”转向“能把 agent 系统稳定、安全、可评估、可观测地跑到生产”。近 30 天的讨论和岗位材料显示，候选人需要同时证明三类能力：
@@ -227,4 +230,3 @@ GitHub GH-600 Agentic AI Developer 认证是一个重要信号。官方考试域
 
 - last30days 引擎：18 个 Reddit threads、20 条 X posts、13 个 HN stories、13 个 GitHub items。
 - WebSearch 补充：Reddit r/AI_Agents 42 题帖、AY Automate 2026 AI Engineer interview guide、Microsoft Learn GH-600 官方认证、GitHub Community GH-600 discussion、r/GithubCopilot GH-600 candidate thread、Agentic Engineering Jobs interview guide、Exponent LangChain interview guide、Dataford Adobe Agentic AI Engineer guide、近期 LangGraph / MCP / evals 岗位材料、LinkedIn 面试趋势帖。
-

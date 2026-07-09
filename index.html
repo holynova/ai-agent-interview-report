@@ -281,6 +281,208 @@
       margin-top: 24px;
     }
 
+    .question-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+      margin: 24px 0 18px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, 0.94);
+      box-shadow: 0 12px 34px rgba(32, 28, 20, 0.08);
+      backdrop-filter: blur(18px);
+    }
+
+    .question-search {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      padding: 10px 12px;
+      outline: none;
+    }
+
+    .question-search:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(20, 108, 95, 0.14);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .action-button,
+    .filter-chip {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 7px 10px;
+      cursor: pointer;
+    }
+
+    .action-button:hover,
+    .filter-chip:hover {
+      border-color: var(--accent);
+    }
+
+    .filter-chip[aria-pressed="true"] {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .question-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 14px;
+    }
+
+    .question-count {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 10px;
+    }
+
+    .question-category {
+      margin-top: 24px;
+    }
+
+    .category-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: end;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .category-heading h3 {
+      margin: 0;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+      font-size: 26px;
+    }
+
+    .category-heading span {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .question-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .question-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+    }
+
+    .question-toggle {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr) 28px;
+      gap: 12px;
+      align-items: center;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      padding: 15px 16px;
+      font: inherit;
+    }
+
+    .question-toggle:hover {
+      background: #f2eadf;
+    }
+
+    .question-number {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #f8f2e8;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .question-text {
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .toggle-icon {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--soft);
+      font-weight: 900;
+    }
+
+    .question-card.is-open .toggle-icon {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .answer {
+      display: none;
+      padding: 0 16px 18px 82px;
+      color: #342f29;
+    }
+
+    .question-card.is-open .answer {
+      display: block;
+    }
+
+    .answer-label {
+      display: inline-block;
+      margin: 0 0 8px;
+      color: var(--accent-2);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .answer p {
+      max-width: 900px;
+      margin-bottom: 10px;
+    }
+
+    .no-results {
+      display: none;
+      padding: 22px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      background: rgba(255, 253, 248, 0.7);
+    }
+
     details {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -387,8 +589,13 @@
       .metrics,
       .prep-grid,
       .category-grid,
-      .sources {
+      .sources,
+      .question-toolbar {
         grid-template-columns: 1fr;
+      }
+
+      .toolbar-actions {
+        justify-content: flex-start;
       }
     }
 
@@ -410,6 +617,20 @@
       summary {
         align-items: flex-start;
         flex-direction: column;
+      }
+
+      .question-toggle {
+        grid-template-columns: 44px minmax(0, 1fr) 26px;
+        padding: 13px 12px;
+      }
+
+      .question-number {
+        width: 36px;
+        height: 36px;
+      }
+
+      .answer {
+        padding: 0 12px 16px 12px;
       }
     }
   </style>
@@ -567,165 +788,20 @@
 
       <section id="questions">
         <div class="section-inner">
-          <h2>102 道具体题目</h2>
-          <p>这些题目按近期讨论、题库帖、GH-600 域和岗位要求归类，覆盖当前 AI Agent 开发岗位最可能出现的面试面。</p>
-          <div class="question-bank">
-            <details open>
-              <summary>基础定义与岗位理解 <span>10 题</span></summary>
-              <ol>
-                <li>什么是 AI agent？它和普通 LLM chain 的区别是什么？</li>
-                <li>什么样的系统不应该做成 agent？</li>
-                <li>Agentic AI Engineer 和传统 ML Engineer 的区别是什么？</li>
-                <li>一个 agent 系统除了 LLM 还需要哪些组件？</li>
-                <li>什么时候用简单 workflow，什么时候用 autonomous agent？</li>
-                <li>你做过哪个 LLM / agent 系统上线？真实用户规模是多少？</li>
-                <li>你怎么解释“AI Engineering 是 10% AI、90% software”？</li>
-                <li>AI agent 的 autonomy boundary 怎么定义？</li>
-                <li>一个系统“看起来像 agent”但其实不是 agent 的例子是什么？</li>
-                <li>你如何向非技术 stakeholder 解释 agent 的风险？</li>
-              </ol>
-            </details>
-
-            <details>
-              <summary>系统设计与架构 <span>15 题</span></summary>
-              <ol start="11">
-                <li>设计一个客服 agent，能查订单、退款、升级人工。</li>
-                <li>设计一个 SOC 安全分析 agent，能读告警、查日志、建议处置。</li>
-                <li>设计一个多租户 “answer over external data” 系统。</li>
-                <li>设计一个 agentic QA service，要求调用 live APIs。</li>
-                <li>什么时候使用 ReAct，什么时候使用 planner-executor？</li>
-                <li>什么时候使用 LangGraph，什么时候用简单 chain？</li>
-                <li>怎么防止 agent over-planning 或陷入循环？</li>
-                <li>怎么设计 termination conditions？</li>
-                <li>如何拆分 planner、executor、critic、tool agent？</li>
-                <li>单 agent + 多工具和 multi-agent swarm 怎么取舍？</li>
-                <li>什么时候 multi-agent 会带来更多复杂度而不是收益？</li>
-                <li>如何设计长任务 agent 的 checkpoint 和 resume？</li>
-                <li>如何处理用户输入不完整但 agent 必须继续的问题？</li>
-                <li>如何设计一个 agent 的权限模型？</li>
-                <li>如何做 model routing？</li>
-              </ol>
-            </details>
-
-            <details>
-              <summary>RAG 与检索 <span>12 题</span></summary>
-              <ol start="26">
-                <li>如何处理金融 RAG pipeline 的 hallucination？</li>
-                <li>如何判断 RAG 检索失败是 embedding、chunking、reranking 还是 prompt 问题？</li>
-                <li>什么时候用 vector search，什么时候用 keyword / hybrid search？</li>
-                <li>chunk size 和 overlap 怎么选？</li>
-                <li>如何做 citation grounding？</li>
-                <li>如何评估 retrieval quality？</li>
-                <li>如何防止模型引用没有出现在 context 里的信息？</li>
-                <li>如何设计 RAG 的 fallback 策略？</li>
-                <li>如何处理 freshness 与缓存？</li>
-                <li>如何让 RAG 支持权限隔离？</li>
-                <li>如何处理多文档冲突？</li>
-                <li>如何减少 context stuffing？</li>
-              </ol>
-            </details>
-
-            <details>
-              <summary>工具调用、MCP 与环境交互 <span>12 题</span></summary>
-              <ol start="38">
-                <li>一个 tool schema 应该怎么设计？</li>
-                <li>怎么处理 tool call 参数错误？</li>
-                <li>怎么防止 agent 调错工具？</li>
-                <li>MCP server 在 agent 系统中解决什么问题？</li>
-                <li>如何调试 MCP server？</li>
-                <li>怎么给工具设置权限边界？</li>
-                <li>工具调用失败要 retry、fallback 还是升级人工？</li>
-                <li>怎么避免 “God Agent” 拿到过多工具导致可靠性下降？</li>
-                <li>如何处理工具返回部分成功？</li>
-                <li>如何在工具调用前做 policy check？</li>
-                <li>如何记录工具调用审计日志？</li>
-                <li>如何防止 agent 连续调用昂贵工具？</li>
-              </ol>
-            </details>
-
-            <details>
-              <summary>Memory、State 与上下文 <span>10 题</span></summary>
-              <ol start="50">
-                <li>memory 和 state 的区别是什么？</li>
-                <li>LangGraph 里的 state 应该保存什么，不应该保存什么？</li>
-                <li>长对话里怎么做 context management？</li>
-                <li>什么时候需要长期记忆，什么时候只需要短期 state？</li>
-                <li>怎么避免 memory 污染？</li>
-                <li>agent 执行中断后如何恢复？</li>
-                <li>如何记录 trajectory 以便 replay 和 debug？</li>
-                <li>如何处理用户偏好和业务事实的冲突？</li>
-                <li>如何给 memory 设置 TTL 或信任级别？</li>
-                <li>如何测试 memory 是否提高了质量？</li>
-              </ol>
-            </details>
-
-            <details>
-              <summary>Evaluation 与 Observability <span>13 题</span></summary>
-              <ol start="60">
-                <li>Agentic system 的 accuracy 怎么算？</li>
-                <li>为什么 final answer accuracy 不够？</li>
-                <li>如何做 trajectory evaluation？</li>
-                <li>如何评估 tool selection quality？</li>
-                <li>如何评估 unnecessary steps？</li>
-                <li>如何设计 LLM-as-a-judge？</li>
-                <li>如何构建 golden dataset？</li>
-                <li>如何做 regression eval？</li>
-                <li>LangSmith / Langfuse / tracing 你怎么用？</li>
-                <li>生产中发现 agent drift，你怎么定位？</li>
-                <li>你会监控哪些指标：latency、cost、tool error、loop count、refusal、fallback？</li>
-                <li>如何评估一个 agent 是否遵守安全边界？</li>
-                <li>如何做线上 A/B 或 shadow eval？</li>
-              </ol>
-            </details>
-
-            <details>
-              <summary>安全、Guardrails 与合规 <span>10 题</span></summary>
-              <ol start="73">
-                <li>如何防 prompt injection？</li>
-                <li>用户要求越权操作时 agent 应该怎么做？</li>
-                <li>guardrail 应该放在 prompt、tool layer、policy layer 还是 post-processing？</li>
-                <li>什么时候需要 human-in-the-loop？</li>
-                <li>如何记录安全边界触发和人工升级？</li>
-                <li>如何限制 agent 的文件、网络、数据库权限？</li>
-                <li>如何防止敏感数据进入 prompt 或 logs？</li>
-                <li>如何测试 agent firewall / policy enforcement？</li>
-                <li>如何处理 tool output 中的恶意指令？</li>
-                <li>如何设计审批流？</li>
-              </ol>
-            </details>
-
-            <details>
-              <summary>成本、性能与可靠性 <span>12 题</span></summary>
-              <ol start="83">
-                <li>如何控制 multi-agent 系统成本？</li>
-                <li>如何选择模型：大模型、小模型、SLM、router？</li>
-                <li>哪些步骤可以 deterministic，哪些必须交给 LLM？</li>
-                <li>怎么减少 token spend？</li>
-                <li>怎么处理 rate limit？</li>
-                <li>怎么做 caching？</li>
-                <li>agent 延迟过高时怎么优化？</li>
-                <li>tool call 或模型调用失败时怎么设计 retry policy？</li>
-                <li>怎么做 canary release？</li>
-                <li>怎么判断一个 agent 可以上生产？</li>
-                <li>如何处理 runaway tool calls？</li>
-                <li>如何处理 agent stuck in loop？</li>
-              </ol>
-            </details>
-
-            <details>
-              <summary>Take-home 常见方向 <span>8 题</span></summary>
-              <ol start="95">
-                <li>构建一个带 eval 的 RAG-plus-agent 小应用。</li>
-                <li>构建一个能调用外部 API 的 agentic QA service。</li>
-                <li>构建一个客服 / sales / support agent，并解释 handoff。</li>
-                <li>给一个失败 agent trace，找出为什么循环或调错工具。</li>
-                <li>给一个业务场景，选择 chain、workflow、single agent 或 multi-agent。</li>
-                <li>为一个 agent 系统写 eval rubric 和测试集。</li>
-                <li>设计一个安全工具调用层，限制高风险操作。</li>
-                <li>展示一个 agent 项目，讲清楚 tradeoffs、失败模式、成本和监控。</li>
-              </ol>
-            </details>
+          <h2>102 道具体题目与参考答案</h2>
+          <p>每道题都配了可展开参考答案。默认折叠，适合先自测；需要时再打开答案核对自己的表达是否覆盖边界、架构、失败模式、eval 和生产化。</p>
+          <div class="question-toolbar" aria-label="题库控制">
+            <input id="questionSearch" class="question-search" type="search" placeholder="搜索题目或答案，例如 MCP、eval、RAG、成本" autocomplete="off">
+            <div class="toolbar-actions">
+              <button class="action-button" id="expandAll" type="button">展开全部</button>
+              <button class="action-button" id="collapseAll" type="button">收起全部</button>
+              <button class="action-button" id="clearFilters" type="button">清除筛选</button>
+            </div>
           </div>
+          <div id="questionFilters" class="question-filters" aria-label="题目分类"></div>
+          <p id="questionCount" class="question-count"></p>
+          <div id="questionBank" class="question-bank"></div>
+          <div id="noResults" class="no-results">没有匹配的题目。换个关键词，或者清除筛选。</div>
         </div>
       </section>
 
@@ -782,5 +858,280 @@
       </footer>
     </main>
   </div>
+  <script>
+    const questionGroups = [
+      {
+        title: "基础定义与岗位理解",
+        questions: [
+          ["什么是 AI agent？它和普通 LLM chain 的区别是什么？", "AI agent 是能围绕目标进行计划、调用工具、观察结果并迭代下一步的系统。普通 chain 更像固定流水线，输入输出路径基本预设；agent 的关键是状态、工具、决策循环和边界控制。"],
+          ["什么样的系统不应该做成 agent？", "规则清晰、路径固定、容错成本低的任务通常不需要 agent，用 deterministic workflow 更可靠。只有当任务需要动态决策、外部工具交互、多步探索或不完整信息处理时，agent 才值得引入。"],
+          ["Agentic AI Engineer 和传统 ML Engineer 的区别是什么？", "Agentic AI Engineer 更偏产品和系统工程，重点是把模型接入工具、数据、权限、eval 和生产运维。传统 ML Engineer 更常负责训练、特征、模型评估和部署模型本身。"],
+          ["一个 agent 系统除了 LLM 还需要哪些组件？", "至少需要 tool registry、状态管理、prompt / policy、检索或上下文层、执行循环、日志和 tracing、eval harness、guardrails、人工升级路径。生产系统还需要成本预算、权限、回放和监控。"],
+          ["什么时候用简单 workflow，什么时候用 autonomous agent？", "如果业务步骤稳定，用 workflow 或 state machine；如果每次任务都需要根据中间结果选择工具、补充信息或调整路线，再考虑 autonomous agent。成熟系统常把 agent 限制在少数开放决策点。"],
+          ["你做过哪个 LLM / agent 系统上线？真实用户规模是多少？", "好答案要给出业务目标、用户量、调用量、关键指标、上线时间和失败复盘。不要只讲 demo，要讲真实用户反馈、监控数据、成本和事故处理。"],
+          ["你怎么解释“AI Engineering 是 10% AI、90% software”？", "LLM 调用只是核心能力的一小部分，真正困难的是权限、数据流、重试、测试、监控、成本、部署和用户体验。面试官想听到你能把不确定模型包进可靠工程系统。"],
+          ["AI agent 的 autonomy boundary 怎么定义？", "先定义 agent 可以自主做什么、必须请求确认什么、绝不允许做什么。边界应落在 policy、tool permission、审批流和审计日志中，而不是只写在 system prompt 里。"],
+          ["一个系统“看起来像 agent”但其实不是 agent 的例子是什么？", "一个固定 prompt 加固定 API 调用的聊天机器人通常不是 agent，因为它没有根据观察结果选择下一步的能力。它可能是 LLM app 或 workflow，但不是自主决策循环。"],
+          ["你如何向非技术 stakeholder 解释 agent 的风险？", "用业务语言说明三类风险：做错事、做越权的事、花太多钱。再说明控制手段：权限边界、人工确认、监控告警、回滚和定期 eval。"]
+        ]
+      },
+      {
+        title: "系统设计与架构",
+        questions: [
+          ["设计一个客服 agent，能查订单、退款、升级人工。", "核心架构是意图识别、订单查询工具、退款规则工具、对话状态和人工升级。退款等高风险动作必须有 policy check 和用户确认，所有工具调用要可追踪。"],
+          ["设计一个 SOC 安全分析 agent，能读告警、查日志、建议处置。", "把 agent 限制为分析和建议，不直接执行破坏性操作。工具包括告警查询、日志检索、资产画像和 runbook 检索；输出必须带证据、置信度和人工确认入口。"],
+          ["设计一个多租户 “answer over external data” 系统。", "关键是租户隔离、权限过滤、数据连接器、索引管线、检索层和引用返回。每次检索必须带 tenant_id 和 ACL filter，避免跨租户泄露。"],
+          ["设计一个 agentic QA service，要求调用 live APIs。", "用 planner 决定是否需要 live API，再由受限 tool executor 调用，最后 synthesis 节点生成答案。需要处理 API 失败、超时、缓存、参数校验和引用来源。"],
+          ["什么时候使用 ReAct，什么时候使用 planner-executor？", "ReAct 适合短任务和工具观察紧密交替的场景；planner-executor 适合长任务，需要先拆计划、再逐步执行和审计。复杂生产系统通常会把两者混合。"],
+          ["什么时候使用 LangGraph，什么时候用简单 chain？", "需要显式状态、分支、循环、恢复和多节点编排时用 LangGraph。只有固定输入输出和少量步骤时，简单 chain 更易调试、更便宜。"],
+          ["怎么防止 agent over-planning 或陷入循环？", "设置最大步骤数、预算、重复动作检测、目标达成判定和失败终止条件。还要记录 trajectory，用 eval 找出哪些任务容易循环。"],
+          ["怎么设计 termination conditions？", "终止条件应包括任务完成、工具不可用、预算耗尽、重复状态、低置信度和安全边界触发。不要只依赖模型自己说完成，要用结构化状态或 verifier。"],
+          ["如何拆分 planner、executor、critic、tool agent？", "planner 只产出计划，executor 负责调用工具，critic 检查结果和约束，tool agent 只封装特定工具域。拆分的目的不是炫技，而是隔离权限、上下文和失败点。"],
+          ["单 agent + 多工具和 multi-agent swarm 怎么取舍？", "单 agent 简单、延迟低，但工具多时上下文稀释和误调用风险上升。multi-agent 适合强专业隔离、并行任务或权限隔离，但会增加协调成本。"],
+          ["什么时候 multi-agent 会带来更多复杂度而不是收益？", "任务规模小、工具少、判断路径清晰时，多 agent 只会增加延迟、成本和调试难度。如果没有明确的专业分工或并行收益，不要为了架构好看而拆。"],
+          ["如何设计长任务 agent 的 checkpoint 和 resume？", "每一步保存输入、状态、工具调用、输出、错误和下一步计划。resume 时从最后一个一致状态恢复，而不是重放所有 prompt。"],
+          ["如何处理用户输入不完整但 agent 必须继续的问题？", "先区分阻塞信息和可默认信息。阻塞信息向用户澄清；可默认信息用显式假设继续，并在输出中标注假设和置信度。"],
+          ["如何设计一个 agent 的权限模型？", "按工具、资源、动作和风险级别授权。低风险读操作可自动执行，高风险写操作需要用户确认或审批，所有调用都要记录审计日志。"],
+          ["如何做 model routing？", "按任务复杂度、延迟、成本、隐私和模态选择模型。简单分类和抽取用小模型，复杂推理或高风险 synthesis 用强模型，并通过 eval 验证路由策略。"]
+        ]
+      },
+      {
+        title: "RAG 与检索",
+        questions: [
+          ["如何处理金融 RAG pipeline 的 hallucination？", "把事实抽取和文本生成拆开。先用检索和结构化抽取拿到数字与出处，再让生成模型只基于结构化事实写答案，最后用 judge 或规则校验引用一致性。"],
+          ["如何判断 RAG 检索失败是 embedding、chunking、reranking 还是 prompt 问题？", "先看 retrieved context 是否包含答案。没有答案是检索或索引问题；有答案但模型不用，是 prompt、上下文排序或生成约束问题。"],
+          ["什么时候用 vector search，什么时候用 keyword / hybrid search？", "语义相近但措辞不同用 vector，精确实体、代码、ID、错误信息用 keyword。生产 RAG 通常用 hybrid，再用 reranker 提升排序。"],
+          ["chunk size 和 overlap 怎么选？", "按文档结构和答案粒度选，不能只用固定 token 数。技术文档常按标题和段落切，overlap 用来保留上下文，但过大会增加噪声和成本。"],
+          ["如何做 citation grounding？", "每个结论绑定具体来源片段、文档 ID 和位置。生成后检查答案句子是否能被引用片段支持，不能支持的句子要删除、降置信度或触发澄清。"],
+          ["如何评估 retrieval quality？", "用标注问题集评估 recall@k、MRR、nDCG、引用命中率和人工判定。还要看失败案例：缺文档、切块错误、权限过滤、rerank 错误。"],
+          ["如何防止模型引用没有出现在 context 里的信息？", "要求结构化输出引用 source_id，并在后处理阶段验证 source_id 是否存在、引用文本是否支持答案。高风险场景需要禁止无引用断言。"],
+          ["如何设计 RAG 的 fallback 策略？", "先扩大检索范围或切换 hybrid，再尝试重写查询；仍失败时返回不知道并说明缺少什么信息。不要让模型在无证据时编答案。"],
+          ["如何处理 freshness 与缓存？", "把知识分成稳定内容和实时内容，稳定内容可缓存，实时内容需要 TTL、版本号和刷新策略。答案里要能暴露数据时间戳。"],
+          ["如何让 RAG 支持权限隔离？", "索引和检索都必须带权限元数据，查询时强制 ACL filter。不能只在生成前过滤，因为检索阶段泄露已经发生。"],
+          ["如何处理多文档冲突？", "保留来源时间、权威级别和冲突片段，让模型显式说明冲突。业务规则应定义优先级，例如官方文档优于评论，最新合同优于旧合同。"],
+          ["如何减少 context stuffing？", "用 query rewrite、metadata filter、reranking、摘要缓存和按需工具读取来缩小上下文。目标是给模型足够证据，而不是塞入所有可能相关内容。"]
+        ]
+      },
+      {
+        title: "工具调用、MCP 与环境交互",
+        questions: [
+          ["一个 tool schema 应该怎么设计？", "参数要少而明确，类型严格，枚举和约束尽量写进 schema。返回值也要结构化，包含成功状态、错误码、可重试性和人类可读解释。"],
+          ["怎么处理 tool call 参数错误？", "先在调用前做 schema validation，失败时让模型修正参数或向用户澄清。不要把底层异常直接丢给用户，也不要无限重试。"],
+          ["怎么防止 agent 调错工具？", "工具描述要清楚边界，工具数量要受控，并用 policy 或 router 限制可见工具集合。生产中还要通过 traces 统计误调用率并做 eval。"],
+          ["MCP server 在 agent 系统中解决什么问题？", "MCP 提供统一协议把外部工具、文件、数据库或服务暴露给 agent。它的价值是标准化工具发现、调用和权限边界，而不是替代业务安全设计。"],
+          ["如何调试 MCP server？", "先用 MCP Inspector 或最小客户端验证 schema、参数和返回，再看 agent trace 中的 tool selection。把协议问题、权限问题和模型选择问题分开定位。"],
+          ["怎么给工具设置权限边界？", "按读写、资源范围和风险等级分层。读工具可自动执行，写工具和外部副作用工具需要确认、审批或 dry run。"],
+          ["工具调用失败要 retry、fallback 还是升级人工？", "看错误类型：网络或 rate limit 可以指数退避，参数错误让模型修正，权限或安全问题升级人工。每类错误都应有最大重试次数。"],
+          ["怎么避免 “God Agent” 拿到过多工具导致可靠性下降？", "按任务阶段暴露工具，或用 router 选择少量相关工具。复杂系统可拆专用 agent，降低上下文稀释和错误工具选择。"],
+          ["如何处理工具返回部分成功？", "返回结构里要区分成功项、失败项和可重试项。agent 应基于部分结果继续、补偿或请求用户确认，而不是把部分成功当全失败。"],
+          ["如何在工具调用前做 policy check？", "在 executor 层拦截工具调用，检查用户身份、资源权限、动作风险和参数范围。policy check 不应只依赖模型自觉。"],
+          ["如何记录工具调用审计日志？", "记录 who、when、tool、参数摘要、资源 ID、结果状态、耗时、成本和审批信息。敏感参数要脱敏，但必须保留足够排障信息。"],
+          ["如何防止 agent 连续调用昂贵工具？", "给每个 session 设置预算、工具级 rate limit 和成本阈值。超过阈值时要求模型压缩计划、切换便宜模型或请求用户确认。"]
+        ]
+      },
+      {
+        title: "Memory、State 与上下文",
+        questions: [
+          ["memory 和 state 的区别是什么？", "state 是当前任务执行所需的结构化运行时信息，memory 是跨会话或长期可复用的信息。state 更像流程变量，memory 更像可检索知识或用户偏好。"],
+          ["LangGraph 里的 state 应该保存什么，不应该保存什么？", "保存任务目标、阶段、工具结果、决策标记和必要上下文。不应保存无限聊天全文、敏感原文或可以从外部系统重新读取的大对象。"],
+          ["长对话里怎么做 context management？", "保留目标、约束、关键事实和最近交互，旧内容做摘要或外部 memory 检索。重要的是可追溯，摘要不能覆盖原始证据。"],
+          ["什么时候需要长期记忆，什么时候只需要短期 state？", "跨会话偏好、长期项目背景和稳定身份信息适合长期记忆。一次性任务、临时工具结果和中间计划只需要短期 state。"],
+          ["怎么避免 memory 污染？", "写入 memory 前做分类、置信度、来源和用户确认。低置信或临时信息不要写长期记忆，过期信息要有 TTL。"],
+          ["agent 执行中断后如何恢复？", "从 checkpoint 读取结构化 state，检查上一步是否产生外部副作用，再决定继续、补偿或重新执行。恢复逻辑要避免重复扣款、重复发邮件等副作用。"],
+          ["如何记录 trajectory 以便 replay 和 debug？", "记录每轮模型输入摘要、输出、工具调用、观察结果、state diff 和错误。replay 时要能重建决策路径，而不只是看到最终答案。"],
+          ["如何处理用户偏好和业务事实的冲突？", "业务事实和权限规则优先于用户偏好。系统应解释冲突并提供可选方案，而不是为了迎合偏好违反事实或政策。"],
+          ["如何给 memory 设置 TTL 或信任级别？", "按来源和稳定性分级：用户明确确认的信息高信任、模型推断低信任；临时项目偏好短 TTL，身份类偏好长 TTL。读取时同时考虑新鲜度和信任度。"],
+          ["如何测试 memory 是否提高了质量？", "构建有无 memory 的对照 eval，比较完成率、用户纠正次数、幻觉率和隐私风险。memory 不是越多越好，必须证明收益大于污染成本。"]
+        ]
+      },
+      {
+        title: "Evaluation 与 Observability",
+        questions: [
+          ["Agentic system 的 accuracy 怎么算？", "不能只看最终答案，要拆成任务成功率、检索命中、工具选择、参数正确、步骤效率、安全合规和用户满意度。不同任务需要不同指标组合。"],
+          ["为什么 final answer accuracy 不够？", "因为 agent 可能用错误工具、走了危险路径、成本过高或偶然答对。trajectory eval 能看到过程质量，才适合生产系统。"],
+          ["如何做 trajectory evaluation？", "把每一步动作、工具、观察和状态变化作为评估对象。检查是否选择正确工具、是否遵守约束、是否有多余步骤、是否在失败时正确恢复。"],
+          ["如何评估 tool selection quality？", "准备带期望工具的测试集，比较 tool precision、recall、错误工具率和无需工具却调用工具的比例。还要抽查高风险工具调用。"],
+          ["如何评估 unnecessary steps？", "设定理想路径或最大合理步数，统计额外工具调用、重复查询和无效推理轮次。过多步骤通常意味着 prompt、routing 或 termination 条件有问题。"],
+          ["如何设计 LLM-as-a-judge？", "judge prompt 要有 rubric、证据、评分维度和少量示例，并定期用人工标注校准。高风险场景不要只依赖单个 judge，应结合规则和人工抽检。"],
+          ["如何构建 golden dataset？", "从真实用户任务、失败日志和边界案例中抽样，覆盖常规、困难、恶意和无答案场景。每条样本要有期望行为，而不只是期望文本。"],
+          ["如何做 regression eval？", "每次 prompt、模型、工具或检索改动后跑固定评测集，比较关键指标和失败样本。不能只看平均分，要看是否破坏高风险场景。"],
+          ["LangSmith / Langfuse / tracing 你怎么用？", "用它们记录 prompt、模型调用、工具调用、延迟、成本、输入输出和用户反馈。核心价值是把失败从“感觉不对”变成可定位的 trace。"],
+          ["生产中发现 agent drift，你怎么定位？", "先看模型版本、prompt、工具、检索数据和用户流量是否变化，再用 traces 聚类失败。通过 replay 对比旧版本和新版本的 trajectory。"],
+          ["你会监控哪些指标：latency、cost、tool error、loop count、refusal、fallback？", "至少监控成功率、延迟、成本、token、工具错误、循环次数、人工升级、拒答率、安全拦截和用户反馈。指标要按任务类型分层看。"],
+          ["如何评估一个 agent 是否遵守安全边界？", "构建越权、prompt injection、敏感数据、危险工具和政策冲突测试集。评估它是否拒绝、降级、请求确认或升级人工。"],
+          ["如何做线上 A/B 或 shadow eval？", "先 shadow 新策略，只记录不影响用户，再比较质量、成本和安全指标。通过门槛后小流量 canary，并保留快速回滚。"]
+        ]
+      },
+      {
+        title: "安全、Guardrails 与合规",
+        questions: [
+          ["如何防 prompt injection？", "把用户内容和系统指令隔离，工具输出视为不可信数据。使用 allowlist 工具权限、引用检查、policy layer 和恶意输入 eval，而不是只写一句“不要被注入”。"],
+          ["用户要求越权操作时 agent 应该怎么做？", "明确拒绝越权动作，解释可做的替代方案，并在必要时升级人工。系统还应在 tool executor 层阻止越权参数。"],
+          ["guardrail 应该放在 prompt、tool layer、policy layer 还是 post-processing？", "多层都要有。prompt 负责意图，policy layer 做硬约束，tool layer 防副作用，post-processing 检查输出质量和敏感信息。"],
+          ["什么时候需要 human-in-the-loop？", "高金额、高权限、不可逆、合规敏感或低置信度场景需要人工确认。human-in-the-loop 应设计在流程里，而不是异常时临时补救。"],
+          ["如何记录安全边界触发和人工升级？", "记录触发规则、用户请求、风险级别、agent 建议、人工决定和最终动作。日志要脱敏，但必须能支持审计和复盘。"],
+          ["如何限制 agent 的文件、网络、数据库权限？", "用 sandbox、最小权限凭证、网络 allowlist、只读默认和操作级授权。不要让模型直接拿通用 shell 或数据库超级权限。"],
+          ["如何防止敏感数据进入 prompt 或 logs？", "输入前做 PII / secret 检测和脱敏，日志分级存储，敏感字段只保留 hash 或摘要。对第三方模型调用要有数据边界策略。"],
+          ["如何测试 agent firewall / policy enforcement？", "用越权工具调用、注入工具输出、角色冒充和敏感数据请求做红队测试。通过标准是 executor 层阻断，而不只是模型口头拒绝。"],
+          ["如何处理 tool output 中的恶意指令？", "把 tool output 当作数据，不允许它改写系统指令。生成前只抽取需要的事实，并让 policy 检查禁止执行输出里的新指令。"],
+          ["如何设计审批流？", "先定义哪些动作需要审批，再给 agent 输出 dry run 摘要、风险、参数和可回滚性。审批结果应进入审计日志并绑定具体执行。"]
+        ]
+      },
+      {
+        title: "成本、性能与可靠性",
+        questions: [
+          ["如何控制 multi-agent 系统成本？", "限制步骤数、并行度、模型等级和工具预算，给每个 session 做实时成本跟踪。能 deterministic 的步骤不要交给大模型。"],
+          ["如何选择模型：大模型、小模型、SLM、router？", "按任务风险和复杂度路由。抽取、分类、格式化用小模型；复杂推理、高风险合成和最终审核用强模型，并用 eval 验证质量差距。"],
+          ["哪些步骤可以 deterministic，哪些必须交给 LLM？", "权限检查、格式校验、预算控制、简单规则和数据库查询应 deterministic。需要自然语言理解、模糊决策和复杂 synthesis 的部分才交给 LLM。"],
+          ["怎么减少 token spend？", "缩短 prompt、减少上下文、缓存中间结果、使用摘要和 reranking、限制工具回传字段。还可以用小模型预处理，把强模型留给关键步骤。"],
+          ["怎么处理 rate limit？", "使用排队、指数退避、缓存、降级模型和用户可见状态。系统要区分可重试和不可重试错误，避免雪崩式重试。"],
+          ["怎么做 caching？", "缓存稳定检索、工具结果、模型中间摘要和常见问题答案。缓存 key 要包含用户权限、数据版本和 prompt 版本，避免过期或越权复用。"],
+          ["agent 延迟过高时怎么优化？", "先用 trace 找出慢点，再并行独立工具、减少模型轮次、裁剪上下文、缓存结果或换小模型。不要盲目优化没有数据的环节。"],
+          ["tool call 或模型调用失败时怎么设计 retry policy？", "按错误类型设置重试：网络错误可退避，参数错误要修正，权限错误不重试。每个重试要有上限和日志。"],
+          ["怎么做 canary release？", "先对小比例低风险流量启用新版本，监控成功率、成本、延迟、安全拦截和用户反馈。异常时自动回滚到旧 prompt、旧模型或旧工具版本。"],
+          ["怎么判断一个 agent 可以上生产？", "它要通过核心 eval、红队安全测试、成本预算、监控告警、人工升级和回滚演练。只在 notebook 里跑通不等于可生产。"],
+          ["如何处理 runaway tool calls？", "设置最大调用次数、重复检测、预算阈值和强制终止。触发后保存 trace，返回部分结果或请求人工处理。"],
+          ["如何处理 agent stuck in loop？", "检测重复 state、重复工具调用和无进展输出。解决方式包括改 termination 条件、增加 verifier、压缩计划或要求澄清。"]
+        ]
+      },
+      {
+        title: "Take-home 常见方向",
+        questions: [
+          ["构建一个带 eval 的 RAG-plus-agent 小应用。", "交付时不要只给 demo，要包含检索设计、agent 工具、测试样本、eval 结果和失败案例。README 里写清 tradeoffs 和下一步优化。"],
+          ["构建一个能调用外部 API 的 agentic QA service。", "重点展示 tool schema、参数校验、错误处理、引用来源和安全边界。API 不稳定时要有 fallback 和用户可见状态。"],
+          ["构建一个客服 / sales / support agent，并解释 handoff。", "展示意图识别、业务工具、对话状态和人工升级。高风险动作要有确认，handoff 要带完整上下文摘要。"],
+          ["给一个失败 agent trace，找出为什么循环或调错工具。", "先定位失败发生在哪一步：计划、工具选择、参数、观察理解还是终止条件。再提出具体修复和回归测试。"],
+          ["给一个业务场景，选择 chain、workflow、single agent 或 multi-agent。", "先说明任务的不确定性、工具数量和风险等级，再选架构。好答案会同时说明为什么不用其他方案。"],
+          ["为一个 agent 系统写 eval rubric 和测试集。", "rubric 要覆盖任务成功、工具选择、证据引用、成本、安全和用户体验。测试集要包括正常、边界、恶意和无答案样本。"],
+          ["设计一个安全工具调用层，限制高风险操作。", "实现 tool registry、policy check、risk level、dry run、approval 和 audit log。面试官会看你是否把安全放在 executor 层。"],
+          ["展示一个 agent 项目，讲清楚 tradeoffs、失败模式、成本和监控。", "用生产复盘方式讲：目标、架构、上线指标、第一周坏了什么、怎么发现、怎么修、怎么防止复发。"]
+        ]
+      }
+    ];
+
+    const state = {
+      activeCategory: "全部",
+      query: ""
+    };
+
+    const allQuestions = questionGroups.flatMap((group) =>
+      group.questions.map(([question, answer], index) => ({
+        category: group.title,
+        question,
+        answer,
+        localIndex: index + 1
+      }))
+    ).map((item, index) => ({ ...item, number: index + 1 }));
+
+    const questionBank = document.getElementById("questionBank");
+    const questionFilters = document.getElementById("questionFilters");
+    const questionSearch = document.getElementById("questionSearch");
+    const questionCount = document.getElementById("questionCount");
+    const noResults = document.getElementById("noResults");
+
+    function normalize(value) {
+      return value.toLowerCase().trim();
+    }
+
+    function matchesQuestion(item) {
+      const query = normalize(state.query);
+      const categoryMatch = state.activeCategory === "全部" || item.category === state.activeCategory;
+      if (!categoryMatch) return false;
+      if (!query) return true;
+      return normalize(`${item.question} ${item.answer} ${item.category}`).includes(query);
+    }
+
+    function renderFilters() {
+      const categories = ["全部", ...questionGroups.map((group) => group.title)];
+      questionFilters.innerHTML = categories.map((category) => {
+        const count = category === "全部"
+          ? allQuestions.length
+          : allQuestions.filter((item) => item.category === category).length;
+        return `<button class="filter-chip" type="button" aria-pressed="${state.activeCategory === category}" data-category="${category}">${category} · ${count}</button>`;
+      }).join("");
+    }
+
+    function renderQuestions() {
+      const visible = allQuestions.filter(matchesQuestion);
+      questionCount.textContent = `当前显示 ${visible.length} / ${allQuestions.length} 道题`;
+      noResults.style.display = visible.length ? "none" : "block";
+
+      const grouped = questionGroups.map((group) => ({
+        title: group.title,
+        items: visible.filter((item) => item.category === group.title)
+      })).filter((group) => group.items.length);
+
+      questionBank.innerHTML = grouped.map((group) => `
+        <div class="question-category">
+          <div class="category-heading">
+            <h3>${group.title}</h3>
+            <span>${group.items.length} 题</span>
+          </div>
+          <div class="question-list">
+            ${group.items.map((item) => `
+              <article class="question-card" data-question-card>
+                <button class="question-toggle" type="button" aria-expanded="false">
+                  <span class="question-number">${String(item.number).padStart(2, "0")}</span>
+                  <span class="question-text">${item.question}</span>
+                  <span class="toggle-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="answer">
+                  <span class="answer-label">参考答案</span>
+                  <p>${item.answer}</p>
+                </div>
+              </article>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function setCardOpen(card, open) {
+      const button = card.querySelector(".question-toggle");
+      const icon = card.querySelector(".toggle-icon");
+      card.classList.toggle("is-open", open);
+      button.setAttribute("aria-expanded", String(open));
+      icon.textContent = open ? "−" : "+";
+    }
+
+    questionFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+      state.activeCategory = button.dataset.category;
+      renderFilters();
+      renderQuestions();
+    });
+
+    questionSearch.addEventListener("input", (event) => {
+      state.query = event.target.value;
+      renderQuestions();
+    });
+
+    questionBank.addEventListener("click", (event) => {
+      const button = event.target.closest(".question-toggle");
+      if (!button) return;
+      const card = button.closest("[data-question-card]");
+      setCardOpen(card, !card.classList.contains("is-open"));
+    });
+
+    document.getElementById("expandAll").addEventListener("click", () => {
+      document.querySelectorAll("[data-question-card]").forEach((card) => setCardOpen(card, true));
+    });
+
+    document.getElementById("collapseAll").addEventListener("click", () => {
+      document.querySelectorAll("[data-question-card]").forEach((card) => setCardOpen(card, false));
+    });
+
+    document.getElementById("clearFilters").addEventListener("click", () => {
+      state.activeCategory = "全部";
+      state.query = "";
+      questionSearch.value = "";
+      renderFilters();
+      renderQuestions();
+    });
+
+    renderFilters();
+    renderQuestions();
+  </script>
 </body>
 </html>
