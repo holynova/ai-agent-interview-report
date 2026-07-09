@@ -652,6 +652,24 @@
       font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
+    .report-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 12px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .report-link:hover {
+      background: #0f5f53;
+      border-color: #0f5f53;
+    }
+
     .download {
       display: inline-flex;
       align-items: center;
@@ -748,11 +766,13 @@
         <a href="#process">面试流程</a>
         <a href="#requirements">能力要求</a>
         <a href="#questions">102 道题目</a>
+        <a href="./xiaohongshu-ai-agent-interview-report.html">小红书面经题库</a>
         <a href="#framework">回答框架</a>
         <a href="#prep">准备路径</a>
         <a href="#sources">来源</a>
       </div>
       <a class="download" href="./report.md" aria-label="打开 Markdown 报告">Markdown 报告</a>
+      <a class="download" href="./xiaohongshu-ai-agent-interview-report.html" aria-label="打开小红书 AI Agent 面经补充报告">小红书补充报告</a>
     </nav>
 
     <main>
@@ -764,7 +784,9 @@
           <span class="pill">调研窗口：2026-06-09 至 2026-07-09</span>
           <span class="pill">引擎：last30days v3.9.4</span>
           <span class="pill">原始证据：64 条社群数据 + Web 补充</span>
+          <span class="pill">新增：小红书 164 条结果 / 224 道题</span>
         </div>
+        <a class="report-link" href="./xiaohongshu-ai-agent-interview-report.html">查看小红书 AI Agent 面经补充报告 →</a>
       </header>
 
       <section id="summary">
@@ -791,6 +813,7 @@
           </div>
           <div class="callout">
             <strong>最关键的准备方向：</strong>准备两个真实项目故事，一个 RAG，一个 tool-using agent。每个都要讲清目标、架构、工具、状态、eval、失败、成本、监控和上线指标。
+            <br><br>补充数据：已新增 <a href="./xiaohongshu-ai-agent-interview-report.html">小红书 AI Agent 面经题库</a>，包含 48 篇详情笔记和 224 个去重具体追问。
           </div>
         </div>
       </section>
@@ -940,6 +963,7 @@
             <div class="source">Hacker News：13 stories，覆盖 agentic AI 和工程讨论。</div>
             <div class="source">GitHub：13 items，覆盖 agent、Claude Code、GH-600 相关开发信号。</div>
             <div class="source">Web 补充：Microsoft Learn GH-600、AY Automate、Agentic Engineering Jobs、Exponent、Dataford、Reddit 题库帖。</div>
+            <div class="source">小红书补充：164 条去重搜索结果、48 篇详情笔记、224 个去重具体题目，见 <a href="./xiaohongshu-ai-agent-interview-report.html">小红书 AI Agent 面经补充报告</a>。</div>
             <div class="source">原始文件：~/Documents/Last30Days/ai-agent-developer-interview-questions-and-requirements-for-programmer-roles-raw-v3.md</div>
           </div>
         </div>
