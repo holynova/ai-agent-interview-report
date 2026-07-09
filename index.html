@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Agent 开发岗位面试题与要求报告</title>
+  <meta name="description" content="近 30 天程序员面试 AI Agent 开发岗位的具体题目、能力要求、面试流程和准备路径。">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #171717;
+      --muted: #626262;
+      --line: #d8d4cc;
+      --paper: #f7f4ee;
+      --panel: #fffdf8;
+      --accent: #146c5f;
+      --accent-2: #a43d2b;
+      --accent-3: #2f5f9f;
+      --soft: #ece6d8;
+      --code: #23211e;
+      --shadow: 0 18px 60px rgba(32, 28, 20, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(20, 108, 95, 0.06) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(20, 108, 95, 0.045) 1px, transparent 1px),
+        var(--paper);
+      background-size: 42px 42px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: rgba(20, 108, 95, 0.42);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.82);
+      backdrop-filter: blur(18px);
+      overflow: auto;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--ink);
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.15;
+    }
+
+    .brand span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .toc-title {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 22px 0 10px;
+    }
+
+    .toc {
+      display: grid;
+      gap: 6px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 7px 8px;
+      border-radius: 6px;
+      color: #35312c;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .toc a:hover {
+      background: var(--soft);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .hero {
+      min-height: 76vh;
+      display: grid;
+      align-content: end;
+      padding: 60px clamp(24px, 5vw, 72px) 42px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(247, 244, 238, 0.2), rgba(247, 244, 238, 0.95)),
+        repeating-linear-gradient(135deg, rgba(164, 61, 43, 0.1) 0 1px, transparent 1px 18px);
+    }
+
+    .eyebrow {
+      width: fit-content;
+      border: 1px solid var(--ink);
+      background: var(--panel);
+      padding: 6px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 0;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+      font-size: clamp(42px, 6vw, 88px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .dek {
+      max-width: 840px;
+      margin: 24px 0 0;
+      color: #302b25;
+      font-size: clamp(17px, 2vw, 23px);
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.78);
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: #38332d;
+      font-size: 13px;
+    }
+
+    section {
+      padding: 48px clamp(24px, 5vw, 72px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-inner {
+      max-width: 1120px;
+    }
+
+    h2 {
+      margin: 0 0 20px;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 28px 0 10px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    p {
+      max-width: 880px;
+      margin: 0 0 14px;
+    }
+
+    .lead-grid,
+    .metrics,
+    .prep-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .tile {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .tile b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .tile p,
+    .tile li {
+      color: #403b35;
+      font-size: 14px;
+    }
+
+    .stat {
+      border-top: 4px solid var(--accent);
+      min-height: 130px;
+    }
+
+    .stat:nth-child(2) {
+      border-top-color: var(--accent-2);
+    }
+
+    .stat:nth-child(3) {
+      border-top-color: var(--accent-3);
+    }
+
+    .stat .num {
+      display: block;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+      font-size: 38px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    ul,
+    ol {
+      margin: 10px 0 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .question-bank {
+      display: grid;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    details {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 17px 18px;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: #f1eadf;
+    }
+
+    details ol {
+      padding: 6px 28px 20px 42px;
+    }
+
+    .callout {
+      margin-top: 24px;
+      padding: 18px;
+      border-left: 5px solid var(--accent-2);
+      background: #fff8ed;
+      max-width: 920px;
+    }
+
+    .sources {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .source {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.68);
+      border-radius: 7px;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 32px clamp(24px, 5vw, 72px) 48px;
+      background: var(--code);
+      color: #f8f0df;
+    }
+
+    .footer pre {
+      margin: 0;
+      white-space: pre-wrap;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+      background: var(--ink);
+      color: #fff;
+      border: 1px solid var(--ink);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media (max-width: 980px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: relative;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .toc {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .lead-grid,
+      .metrics,
+      .prep-grid,
+      .category-grid,
+      .sources {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        min-height: 70vh;
+        padding-top: 38px;
+      }
+
+      .toc {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding-top: 36px;
+        padding-bottom: 36px;
+      }
+
+      summary {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav aria-label="页面导航">
+      <div class="brand">
+        <div class="mark">AI</div>
+        <div>
+          <strong>Agent Interview Report</strong>
+          <span>last30days · 2026-07-09</span>
+        </div>
+      </div>
+      <div class="toc-title">目录</div>
+      <div class="toc">
+        <a href="#summary">核心结论</a>
+        <a href="#process">面试流程</a>
+        <a href="#requirements">能力要求</a>
+        <a href="#questions">102 道题目</a>
+        <a href="#framework">回答框架</a>
+        <a href="#prep">准备路径</a>
+        <a href="#sources">来源</a>
+      </div>
+      <a class="download" href="./report.md" aria-label="打开 Markdown 报告">Markdown 报告</a>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">近 30 天调研 · Reddit / X / HN / GitHub / Web</div>
+        <h1>程序员面试 AI Agent 开发岗位：题目与要求报告</h1>
+        <p class="dek">岗位门槛正在从“会调模型 API”升级为“能设计、评估、调试、治理生产级 agent 系统”。这份报告整理了当前面试流程、能力分类、102 道具体题和准备优先级。</p>
+        <div class="meta-row">
+          <span class="pill">调研窗口：2026-06-09 至 2026-07-09</span>
+          <span class="pill">引擎：last30days v3.9.4</span>
+          <span class="pill">原始证据：64 条社群数据 + Web 补充</span>
+        </div>
+      </header>
+
+      <section id="summary">
+        <div class="section-inner">
+          <h2>核心结论</h2>
+          <p>AI Agent 开发岗位的面试重点已经从“会用 LLM”转向“能把 agent 系统稳定、安全、可评估、可观测地跑到生产”。候选人需要同时证明软件工程、LLM 应用工程和 agent 工程三类能力。</p>
+          <p>传统 DSA 没有完全消失，但不再是主战场。近期讨论显示，面试仍可能问基础字符串、数组、hash map 和简单逻辑题，但真正拉开差距的是系统设计、agentic system design、eval、调试和生产复盘。</p>
+          <div class="metrics">
+            <div class="tile stat">
+              <span class="num">102</span>
+              <b>具体题目</b>
+              <p>按基础、系统设计、RAG、工具调用、状态、eval、安全、成本和 take-home 分类。</p>
+            </div>
+            <div class="tile stat">
+              <span class="num">6</span>
+              <b>GH-600 官方域</b>
+              <p>架构、工具、状态、评估、多 agent、guardrails，和岗位要求高度一致。</p>
+            </div>
+            <div class="tile stat">
+              <span class="num">4</span>
+              <b>常见面试形态</b>
+              <p>技术 screen、AI assessment、take-home、system design / walkthrough。</p>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>最关键的准备方向：</strong>准备两个真实项目故事，一个 RAG，一个 tool-using agent。每个都要讲清目标、架构、工具、状态、eval、失败、成本、监控和上线指标。
+          </div>
+        </div>
+      </section>
+
+      <section id="process">
+        <div class="section-inner">
+          <h2>面试流程画像</h2>
+          <div class="lead-grid">
+            <div class="tile">
+              <b>1. Screen</b>
+              <p>确认是否真正上线过 LLM 或 agent 功能，是否有真实用户、真实失败和真实指标。</p>
+            </div>
+            <div class="tile">
+              <b>2. 技术问答</b>
+              <p>通常 45-60 分钟，偏 reasoning。比起硬背框架，更看重 tradeoff 表达。</p>
+            </div>
+            <div class="tile">
+              <b>3. Take-home</b>
+              <p>2-4 小时的小型 RAG-plus-agent 或 API tool agent，明确要求 eval 和 walkthrough。</p>
+            </div>
+            <div class="tile">
+              <b>4. 系统设计</b>
+              <p>客服 agent、SOC agent、多租户 QA、多 agent workflow、observability。</p>
+            </div>
+            <div class="tile">
+              <b>5. Walkthrough</b>
+              <p>解释架构、失败模式、成本、监控、安全边界和下一步改进。</p>
+            </div>
+            <div class="tile">
+              <b>6. Bar raiser / CTO</b>
+              <p>问生产经验、业务约束、安全合规、团队协作和长期维护能力。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="requirements">
+        <div class="section-inner">
+          <h2>能力要求分类</h2>
+          <div class="category-grid">
+            <div class="tile">
+              <b>软件工程基础</b>
+              <ul>
+                <li>Python、TypeScript / Node、后端 API、async、数据库</li>
+                <li>Docker、CI/CD、测试、Git、cloud deployment</li>
+                <li>日志、tracing、metrics、canary、rollback</li>
+              </ul>
+            </div>
+            <div class="tile">
+              <b>LLM 与 RAG</b>
+              <ul>
+                <li>Tokens、sampling、context window、structured output</li>
+                <li>Embedding、chunking、hybrid search、reranking</li>
+                <li>RAG hallucination control、citation grounding、retrieval eval</li>
+              </ul>
+            </div>
+            <div class="tile">
+              <b>Agent 架构</b>
+              <ul>
+                <li>ReAct、planner-executor、graph workflow、state machine</li>
+                <li>LangGraph、CrewAI、AutoGen、OpenAI Agents SDK</li>
+                <li>状态、记忆、执行恢复、trajectory replay</li>
+              </ul>
+            </div>
+            <div class="tile">
+              <b>工具调用与 MCP</b>
+              <ul>
+                <li>Function calling / tool schema 设计</li>
+                <li>MCP server、tool discovery、environment interaction</li>
+                <li>Tool permission、sandbox、retry、fallback、audit</li>
+              </ul>
+            </div>
+            <div class="tile">
+              <b>Evals 与 Observability</b>
+              <ul>
+                <li>Final answer、trajectory、tool choice、cost、latency eval</li>
+                <li>LangSmith、Langfuse、OpenTelemetry、custom traces</li>
+                <li>Golden dataset、regression eval、online monitoring</li>
+              </ul>
+            </div>
+            <div class="tile">
+              <b>Guardrails 与安全</b>
+              <ul>
+                <li>Prompt injection、越权工具调用、data exfiltration</li>
+                <li>Policy layer、pre-tool guard、post-generation validation</li>
+                <li>Human-in-the-loop、audit logging、compliance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="questions">
+        <div class="section-inner">
+          <h2>102 道具体题目</h2>
+          <p>这些题目按近期讨论、题库帖、GH-600 域和岗位要求归类，覆盖当前 AI Agent 开发岗位最可能出现的面试面。</p>
+          <div class="question-bank">
+            <details open>
+              <summary>基础定义与岗位理解 <span>10 题</span></summary>
+              <ol>
+                <li>什么是 AI agent？它和普通 LLM chain 的区别是什么？</li>
+                <li>什么样的系统不应该做成 agent？</li>
+                <li>Agentic AI Engineer 和传统 ML Engineer 的区别是什么？</li>
+                <li>一个 agent 系统除了 LLM 还需要哪些组件？</li>
+                <li>什么时候用简单 workflow，什么时候用 autonomous agent？</li>
+                <li>你做过哪个 LLM / agent 系统上线？真实用户规模是多少？</li>
+                <li>你怎么解释“AI Engineering 是 10% AI、90% software”？</li>
+                <li>AI agent 的 autonomy boundary 怎么定义？</li>
+                <li>一个系统“看起来像 agent”但其实不是 agent 的例子是什么？</li>
+                <li>你如何向非技术 stakeholder 解释 agent 的风险？</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary>系统设计与架构 <span>15 题</span></summary>
+              <ol start="11">
+                <li>设计一个客服 agent，能查订单、退款、升级人工。</li>
+                <li>设计一个 SOC 安全分析 agent，能读告警、查日志、建议处置。</li>
+                <li>设计一个多租户 “answer over external data” 系统。</li>
+                <li>设计一个 agentic QA service，要求调用 live APIs。</li>
+                <li>什么时候使用 ReAct，什么时候使用 planner-executor？</li>
+                <li>什么时候使用 LangGraph，什么时候用简单 chain？</li>
+                <li>怎么防止 agent over-planning 或陷入循环？</li>
+                <li>怎么设计 termination conditions？</li>
+                <li>如何拆分 planner、executor、critic、tool agent？</li>
+                <li>单 agent + 多工具和 multi-agent swarm 怎么取舍？</li>
+                <li>什么时候 multi-agent 会带来更多复杂度而不是收益？</li>
+                <li>如何设计长任务 agent 的 checkpoint 和 resume？</li>
+                <li>如何处理用户输入不完整但 agent 必须继续的问题？</li>
+                <li>如何设计一个 agent 的权限模型？</li>
+                <li>如何做 model routing？</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary>RAG 与检索 <span>12 题</span></summary>
+              <ol start="26">
+                <li>如何处理金融 RAG pipeline 的 hallucination？</li>
+                <li>如何判断 RAG 检索失败是 embedding、chunking、reranking 还是 prompt 问题？</li>
+                <li>什么时候用 vector search，什么时候用 keyword / hybrid search？</li>
+                <li>chunk size 和 overlap 怎么选？</li>
+                <li>如何做 citation grounding？</li>
+                <li>如何评估 retrieval quality？</li>
+                <li>如何防止模型引用没有出现在 context 里的信息？</li>
+                <li>如何设计 RAG 的 fallback 策略？</li>
+                <li>如何处理 freshness 与缓存？</li>
+                <li>如何让 RAG 支持权限隔离？</li>
+                <li>如何处理多文档冲突？</li>
+                <li>如何减少 context stuffing？</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary>工具调用、MCP 与环境交互 <span>12 题</span></summary>
+              <ol start="38">
+                <li>一个 tool schema 应该怎么设计？</li>
+                <li>怎么处理 tool call 参数错误？</li>
+                <li>怎么防止 agent 调错工具？</li>
+                <li>MCP server 在 agent 系统中解决什么问题？</li>
+                <li>如何调试 MCP server？</li>
+                <li>怎么给工具设置权限边界？</li>
+                <li>工具调用失败要 retry、fallback 还是升级人工？</li>
+                <li>怎么避免 “God Agent” 拿到过多工具导致可靠性下降？</li>
+                <li>如何处理工具返回部分成功？</li>
+                <li>如何在工具调用前做 policy check？</li>
+                <li>如何记录工具调用审计日志？</li>
+                <li>如何防止 agent 连续调用昂贵工具？</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary>Memory、State 与上下文 <span>10 题</span></summary>
+              <ol start="50">
+                <li>memory 和 state 的区别是什么？</li>
+                <li>LangGraph 里的 state 应该保存什么，不应该保存什么？</li>
+                <li>长对话里怎么做 context management？</li>
+                <li>什么时候需要长期记忆，什么时候只需要短期 state？</li>
+                <li>怎么避免 memory 污染？</li>
+                <li>agent 执行中断后如何恢复？</li>
+                <li>如何记录 trajectory 以便 replay 和 debug？</li>
+                <li>如何处理用户偏好和业务事实的冲突？</li>
+                <li>如何给 memory 设置 TTL 或信任级别？</li>
+                <li>如何测试 memory 是否提高了质量？</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary>Evaluation 与 Observability <span>13 题</span></summary>
+              <ol start="60">
+                <li>Agentic system 的 accuracy 怎么算？</li>
+                <li>为什么 final answer accuracy 不够？</li>
+                <li>如何做 trajectory evaluation？</li>
+                <li>如何评估 tool selection quality？</li>
+                <li>如何评估 unnecessary steps？</li>
+                <li>如何设计 LLM-as-a-judge？</li>
+                <li>如何构建 golden dataset？</li>
+                <li>如何做 regression eval？</li>
+                <li>LangSmith / Langfuse / tracing 你怎么用？</li>
+                <li>生产中发现 agent drift，你怎么定位？</li>
+                <li>你会监控哪些指标：latency、cost、tool error、loop count、refusal、fallback？</li>
+                <li>如何评估一个 agent 是否遵守安全边界？</li>
+                <li>如何做线上 A/B 或 shadow eval？</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary>安全、Guardrails 与合规 <span>10 题</span></summary>
+              <ol start="73">
+                <li>如何防 prompt injection？</li>
+                <li>用户要求越权操作时 agent 应该怎么做？</li>
+                <li>guardrail 应该放在 prompt、tool layer、policy layer 还是 post-processing？</li>
+                <li>什么时候需要 human-in-the-loop？</li>
+                <li>如何记录安全边界触发和人工升级？</li>
+                <li>如何限制 agent 的文件、网络、数据库权限？</li>
+                <li>如何防止敏感数据进入 prompt 或 logs？</li>
+                <li>如何测试 agent firewall / policy enforcement？</li>
+                <li>如何处理 tool output 中的恶意指令？</li>
+                <li>如何设计审批流？</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary>成本、性能与可靠性 <span>12 题</span></summary>
+              <ol start="83">
+                <li>如何控制 multi-agent 系统成本？</li>
+                <li>如何选择模型：大模型、小模型、SLM、router？</li>
+                <li>哪些步骤可以 deterministic，哪些必须交给 LLM？</li>
+                <li>怎么减少 token spend？</li>
+                <li>怎么处理 rate limit？</li>
+                <li>怎么做 caching？</li>
+                <li>agent 延迟过高时怎么优化？</li>
+                <li>tool call 或模型调用失败时怎么设计 retry policy？</li>
+                <li>怎么做 canary release？</li>
+                <li>怎么判断一个 agent 可以上生产？</li>
+                <li>如何处理 runaway tool calls？</li>
+                <li>如何处理 agent stuck in loop？</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary>Take-home 常见方向 <span>8 题</span></summary>
+              <ol start="95">
+                <li>构建一个带 eval 的 RAG-plus-agent 小应用。</li>
+                <li>构建一个能调用外部 API 的 agentic QA service。</li>
+                <li>构建一个客服 / sales / support agent，并解释 handoff。</li>
+                <li>给一个失败 agent trace，找出为什么循环或调错工具。</li>
+                <li>给一个业务场景，选择 chain、workflow、single agent 或 multi-agent。</li>
+                <li>为一个 agent 系统写 eval rubric 和测试集。</li>
+                <li>设计一个安全工具调用层，限制高风险操作。</li>
+                <li>展示一个 agent 项目，讲清楚 tradeoffs、失败模式、成本和监控。</li>
+              </ol>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="framework">
+        <div class="section-inner">
+          <h2>回答框架</h2>
+          <p>面试官通常不是在找“框架名”，而是在看你是否知道系统为什么失败、如何观测、如何约束、如何恢复。回答时用这个顺序最稳：</p>
+          <div class="prep-grid">
+            <div class="tile"><b>1. 定义边界</b><p>这个系统是否真的需要 agent？如果不用 agent，替代方案是什么？</p></div>
+            <div class="tile"><b>2. 讲架构取舍</b><p>workflow、single agent、graph、multi-agent，各自 tradeoff 是什么？</p></div>
+            <div class="tile"><b>3. 讲失败模式</b><p>loop、tool error、hallucination、context drift、cost spike 如何出现？</p></div>
+            <div class="tile"><b>4. 讲 eval</b><p>final output、trajectory、tool choice、safety、cost 都怎么测？</p></div>
+            <div class="tile"><b>5. 讲生产化</b><p>tracing、guardrails、human escalation、rollback、canary 如何落地？</p></div>
+            <div class="tile"><b>6. 讲复盘</b><p>上线后坏了什么，你怎么发现、怎么修、怎么防止再发生？</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="prep">
+        <div class="section-inner">
+          <h2>准备路径</h2>
+          <ol>
+            <li>准备两个真实项目故事：一个 RAG，另一个 tool-using agent。</li>
+            <li>每个项目都写清楚：目标、架构、工具、状态、eval、失败、成本、监控、上线指标。</li>
+            <li>手写一个最小 agent：不靠框架，实现 tool registry、planner loop、structured output、retry、trace。</li>
+            <li>再用 LangGraph 或类似框架重做一遍，说明框架解决了什么问题，也带来了什么复杂度。</li>
+            <li>做一份 eval harness：至少包括 golden cases、LLM judge rubric、trajectory inspection、regression test。</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="sources">
+        <div class="section-inner">
+          <h2>来源</h2>
+          <p>调研由 last30days 引擎和 WebSearch 补充组合完成。原始数据文件保存在本地 raw artifact 中，Markdown 版报告保存在本项目的 <a href="./report.md">report.md</a>。</p>
+          <div class="sources">
+            <div class="source">Reddit：18 threads，主要来自 r/AI_Agents、r/LangChain、r/cscareerquestions。</div>
+            <div class="source">X：20 posts，包含 GH-600、AI Engineer 技能栈、面试轮次等讨论。</div>
+            <div class="source">Hacker News：13 stories，覆盖 agentic AI 和工程讨论。</div>
+            <div class="source">GitHub：13 items，覆盖 agent、Claude Code、GH-600 相关开发信号。</div>
+            <div class="source">Web 补充：Microsoft Learn GH-600、AY Automate、Agentic Engineering Jobs、Exponent、Dataford、Reddit 题库帖。</div>
+            <div class="source">原始文件：~/Documents/Last30Days/ai-agent-developer-interview-questions-and-requirements-for-programmer-roles-raw-v3.md</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <pre>✅ All agents reported back!
+├─ 🟠 Reddit: 18 threads │ 1,849 upvotes │ 1,065 comments
+├─ 🔵 X: 20 posts │ 4,038 likes │ 541 reposts
+├─ 🟡 HN: 13 stories │ 440 points │ 183 comments
+├─ 🐙 GitHub: 13 items │ 415 reactions │ 272 comments
+└─ 📎 Raw results saved to ~/Documents/Last30Days/ai-agent-developer-interview-questions-and-requirements-for-programmer-roles-raw-v3.md</pre>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
