@@ -503,14 +503,72 @@
       margin-top: 12px;
     }
 
-    .answer-keywords span {
+    .answer-keywords button,
+    .term {
       border: 1px solid var(--line);
-      border-radius: 999px;
+      border-radius: 6px;
       background: #f8f2e8;
-      padding: 4px 8px;
       color: #403b35;
+      font: inherit;
       font-size: 12px;
       font-weight: 700;
+      cursor: pointer;
+    }
+
+    .answer-keywords button {
+      padding: 3px 2px;
+      border-width: 0 0 1px;
+      border-style: none none dashed;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .term {
+      display: inline;
+      padding: 0 2px;
+      border-width: 0 0 1px;
+      border-style: none none dashed;
+      border-radius: 0;
+      background: transparent;
+      color: var(--accent);
+      text-underline-offset: 3px;
+    }
+
+    .term:hover,
+    .term:focus-visible,
+    .answer-keywords button:hover,
+    .answer-keywords button:focus-visible {
+      color: var(--accent-2);
+      outline: none;
+    }
+
+    .term-popover {
+      position: fixed;
+      z-index: 10;
+      max-width: min(360px, calc(100vw - 28px));
+      padding: 14px 15px;
+      border: 1px solid #2d2924;
+      border-radius: 8px;
+      background: #fffdf8;
+      color: var(--ink);
+      box-shadow: 0 18px 50px rgba(32, 28, 20, 0.22);
+    }
+
+    .term-popover[hidden] {
+      display: none;
+    }
+
+    .term-popover strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .term-popover p {
+      margin: 0;
+      color: #403b35;
+      font-size: 13px;
+      line-height: 1.55;
     }
 
     .no-results {
@@ -1167,6 +1225,57 @@
       "Take-home 常见方向": ["回答要体现交付意识：能跑、可测、可解释、知道限制，并能说明如何生产化。"]
     };
 
+    const termDefinitions = {
+      "ACL filter": "Access Control List filter，访问控制过滤。检索或查询时先按用户权限过滤数据，避免模型看到无权访问的内容。",
+      "argument validation": "参数校验。工具调用前检查类型、必填字段、枚举、范围和格式，防止模型生成的错误参数进入真实系统。",
+      "audit trail": "审计轨迹。记录谁在什么时候用什么参数做了什么动作，结果是什么，用于排障、合规和安全复盘。",
+      "circuit breaker": "熔断器。连续失败或成本异常时自动停止调用下游工具或模型，避免级联故障和无限重试。",
+      "cost attribution": "成本归因。把 token、模型调用、工具调用和运行时间归到具体用户、任务或步骤，便于优化和限额。",
+      "executor": "执行器。真正调用工具、API 或数据库的代码层，负责权限检查、参数校验、重试和错误处理。",
+      "eval runner": "评测执行器。批量运行测试样本并输出质量、成本、延迟和失败案例的工具。",
+      "golden set": "黄金测试集。人工确认过期望行为的一组样本，用来做回归测试和版本对比。",
+      "human approval": "人工审批。高风险动作执行前让人确认参数、影响范围和可回滚性。",
+      "hybrid retrieval": "混合检索。把关键词检索和向量检索结合起来，提高实体、代码、错误信息和语义问题的召回质量。",
+      "idempotency": "幂等性。同一个操作重复执行不会造成重复扣款、重复发邮件或重复写入等副作用。",
+      "known limitations": "已知限制。主动说明当前 demo 或系统做不到什么、哪些场景容易失败、下一步如何补齐。",
+      "LangGraph": "LangChain 生态里的图式 agent 编排框架，用节点、边和状态来描述多步骤 agent workflow。",
+      "LangSmith": "LangChain 生态的调试和可观测性平台，用来记录 trace、评测结果、模型调用和线上反馈。",
+      "Langfuse": "开源 LLM observability 平台，用于记录 prompt、trace、成本、延迟和评测结果。",
+      "LLM-as-a-judge": "用大模型当评审器，对答案质量、引用一致性或任务完成情况打分。需要 rubric 和人工校准。",
+      "LLM": "Large Language Model，大语言模型。这里通常指 GPT、Claude、Gemini、Llama 等能理解和生成文本的模型。",
+      "MCP": "Model Context Protocol，模型上下文协议。用于把外部工具、文件、服务或数据源标准化暴露给 agent。",
+      "metadata filter": "元数据过滤。根据租户、权限、时间、文档类型等字段缩小检索范围。",
+      "P95": "第 95 百分位。100 次请求中第 95 慢的延迟，比平均值更能反映真实用户体验。",
+      "PII": "Personally Identifiable Information，个人可识别信息，例如姓名、手机号、邮箱、身份证号或地址。",
+      "planner-executor": "规划器和执行器分离的架构。planner 负责拆步骤，executor 负责执行具体工具。",
+      "policy enforcement": "策略执行。把安全、权限、预算等规则写进系统层，而不是只写进 prompt。",
+      "README": "项目说明文档。take-home 中应包含运行方式、设计取舍、测试方式、限制和后续计划。",
+      "reranker": "重排模型。对初步检索结果重新排序，把最可能支持答案的片段排到前面。",
+      "risk level": "风险等级。给工具或操作标注读、写、高权限、不可逆等风险，用于决定是否自动执行或要求审批。",
+      "shadow traffic": "影子流量。让新版本在后台处理真实请求但不影响用户，用于上线前对比质量和成本。",
+      "SLO": "Service Level Objective，服务等级目标。系统承诺的成功率、延迟或可用性目标。",
+      "source_id": "来源标识。RAG 中用于把答案中的结论绑定到具体文档、片段或引用位置。",
+      "state machine": "状态机。用明确状态和转移规则控制流程，适合让 agent 的执行路径可预测、可恢复。",
+      "state store": "状态存储。保存当前任务目标、阶段、工具结果、错误和下一步计划的存储层。",
+      "timeout": "超时限制。工具、模型或任务超过指定时间就停止，避免请求挂死。",
+      "tool schema": "工具结构定义。描述工具名称、参数类型、必填字段、返回结构和错误语义。",
+      "trace replay": "轨迹回放。重放 agent 的模型输出、工具调用和状态变化，用于定位失败原因。",
+      "trajectory eval": "轨迹评估。评估 agent 的过程是否合理，包括工具选择、参数、步骤数量和安全行为。",
+      "untrusted input": "不可信输入。来自用户、网页、文档、邮件或工具返回的内容，不能当成系统指令执行。",
+      "verifier": "验证器。检查 agent 的计划或结果是否满足约束，常用于降低幻觉和错误工具调用。",
+      "RAG": "Retrieval-Augmented Generation，检索增强生成。先从外部知识库检索证据，再让模型基于证据回答。",
+      "AI agent": "具备目标、状态、工具调用和多步反馈循环的 AI 系统，不只是一次性文本生成。",
+      "workflow": "固定或半固定的流程编排。相比 agent，它的步骤和分支更明确，更容易测试和维护。",
+      "tool": "agent 可调用的外部能力，例如 API、数据库查询、文件读写、搜索、发邮件或业务系统操作。",
+      "prompt": "给模型的指令和上下文。它能影响模型行为，但不应承担权限、安全和执行层的硬约束。",
+      "embedding": "把文本转换成向量表示的技术，常用于语义检索和相似度匹配。",
+      "reranking": "对初步检索结果重新排序的步骤，通常用更强的模型判断哪些片段最值得放进上下文。",
+      "citation grounding": "引用对齐。要求答案中的关键结论能被具体来源片段支持。",
+      "OpenTelemetry": "通用可观测性标准，用于采集 traces、metrics 和 logs，便于跨服务排障。",
+      "canary": "金丝雀发布。先让小部分流量使用新版本，观察指标稳定后再扩大范围。",
+      "shadow": "影子运行。新版本在后台处理真实请求但不影响用户，用来比较质量、成本和风险。"
+    };
+
     function escapeHtml(value) {
       return value
         .replaceAll("&", "&amp;")
@@ -1179,6 +1288,28 @@
       return [...new Set(values)];
     }
 
+    function joinReadable(sentences) {
+      if (!sentences.length) return "";
+      if (sentences.length === 1) return sentences[0];
+      if (sentences.length === 2) return `${sentences[0]} ${sentences[1]}`;
+      return `${sentences[0]} ${sentences[1]} ${sentences[2]}`;
+    }
+
+    function annotateTerms(text, terms) {
+      let output = escapeHtml(text);
+      const sortedTerms = terms
+        .filter((term) => termDefinitions[term])
+        .sort((a, b) => b.length - a.length);
+
+      sortedTerms.forEach((term) => {
+        const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const pattern = new RegExp(`(^|[^\\w-])(${escapedTerm})(?![\\w-])`, "g");
+        output = output.replace(pattern, `$1<button class="term" type="button" data-term="${escapeHtml(term)}">$2</button>`);
+      });
+
+      return output;
+    }
+
     function buildProfessionalAnswer(item) {
       const text = `${item.question} ${item.answer}`;
       const matchedRules = answerRules.filter((rule) => rule.test.test(text));
@@ -1186,17 +1317,22 @@
         ...matchedRules.flatMap((rule) => rule.points),
         ...(categoryFallbacks[item.category] || [])
       ]).slice(0, 3);
-      const terms = unique(matchedRules.flatMap((rule) => rule.terms)).slice(0, 6);
+      const rawAnswer = `${item.answer} ${points.join(" ")}`;
+      const detectedTerms = Object.keys(termDefinitions).filter((term) => rawAnswer.includes(term));
+      const terms = unique([
+        ...matchedRules.flatMap((rule) => rule.terms),
+        ...detectedTerms
+      ]).slice(0, 8);
+      const mainAnswer = annotateTerms(item.answer, terms);
+      const followUp = annotateTerms(joinReadable(points), terms);
 
       return `
-        <p>${escapeHtml(item.answer)}</p>
+        <p>${mainAnswer}</p>
         <div class="answer-section">
-          <strong>回答要点</strong>
-          <ul>
-            ${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
-          </ul>
+          <strong>补充说明</strong>
+          <p>${followUp}</p>
         </div>
-        ${terms.length ? `<div class="answer-keywords" aria-label="关键术语">${terms.map((term) => `<span>${escapeHtml(term)}</span>`).join("")}</div>` : ""}
+        ${terms.length ? `<div class="answer-keywords" aria-label="关键术语">${terms.map((term) => `<button type="button" data-term="${escapeHtml(term)}">${escapeHtml(term)}</button>`).join("")}</div>` : ""}
       `;
     }
 
@@ -1267,6 +1403,13 @@
     });
 
     questionBank.addEventListener("click", (event) => {
+      const termButton = event.target.closest("[data-term]");
+      if (termButton) {
+        event.stopPropagation();
+        showTermPopover(termButton);
+        return;
+      }
+
       const button = event.target.closest(".question-toggle");
       if (!button) return;
       const card = button.closest("[data-question-card]");
@@ -1288,6 +1431,54 @@
       renderFilters();
       renderQuestions();
     });
+
+    const termPopover = document.createElement("div");
+    termPopover.className = "term-popover";
+    termPopover.hidden = true;
+    termPopover.setAttribute("role", "dialog");
+    termPopover.setAttribute("aria-live", "polite");
+    document.body.appendChild(termPopover);
+
+    function showTermPopover(anchor) {
+      const term = anchor.dataset.term;
+      const definition = termDefinitions[term];
+      if (!definition) return;
+
+      termPopover.innerHTML = `<strong>${escapeHtml(term)}</strong><p>${escapeHtml(definition)}</p>`;
+      termPopover.hidden = false;
+
+      const anchorRect = anchor.getBoundingClientRect();
+      const popoverRect = termPopover.getBoundingClientRect();
+      const gap = 10;
+      const left = Math.min(
+        Math.max(14, anchorRect.left),
+        window.innerWidth - popoverRect.width - 14
+      );
+      const below = anchorRect.bottom + gap;
+      const above = anchorRect.top - popoverRect.height - gap;
+      const top = below + popoverRect.height < window.innerHeight - 14
+        ? below
+        : Math.max(14, above);
+
+      termPopover.style.left = `${left}px`;
+      termPopover.style.top = `${top}px`;
+    }
+
+    function hideTermPopover() {
+      termPopover.hidden = true;
+    }
+
+    document.addEventListener("click", (event) => {
+      if (event.target.closest("[data-term]") || event.target.closest(".term-popover")) return;
+      hideTermPopover();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") hideTermPopover();
+    });
+
+    window.addEventListener("resize", hideTermPopover);
+    window.addEventListener("scroll", hideTermPopover, { passive: true });
 
     renderFilters();
     renderQuestions();
