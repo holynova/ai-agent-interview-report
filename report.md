@@ -8,7 +8,7 @@
 `~/Documents/Last30Days/ai-agent-developer-interview-questions-and-requirements-for-programmer-roles-raw-v3.md`
 
 交互版 HTML：
-`index.html` 包含每道题的折叠式资深参考答案、搜索、分类筛选、展开全部和收起全部。每个答案都补充了答题逻辑、生产化要点、面试加分表达和关键技术术语。
+`index.html` 包含每道题的折叠式参考答案、搜索、分类筛选、展开全部和收起全部。答案已去掉重复模板，改为题目自身答案加少量具体回答要点和相关技术术语。
 
 ## 核心结论
 

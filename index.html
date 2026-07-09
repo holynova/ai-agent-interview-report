@@ -1080,182 +1080,92 @@
       return normalize(`${item.question} ${item.answer} ${item.category}`).includes(query);
     }
 
-    const categoryGuides = {
-      "基础定义与岗位理解": {
-        logic: [
-          "先给出边界清晰的定义，再把 agent、workflow、chain、chatbot 的差异讲清楚。",
-          "用 autonomy、tool use、state、feedback loop、policy boundary 这几个维度解释，不要停留在“会自己思考”的泛化描述。",
-          "最后落到工程现实：agent 是一套不确定性执行系统，必须被权限、eval、observability 和 fallback 包住。"
-        ],
-        production: [
-          "面试中可以主动补充：我会优先评估是否真的需要 agent，因为 deterministic workflow 往往更便宜、更可测、更稳定。",
-          "如果必须用 agent，我会把自主决策限制在少数开放节点，并把高风险动作放到 tool executor 和 approval flow 里。",
-          "好的岗位理解不是背定义，而是能说清业务目标、失败成本、上线指标和长期维护成本。"
-        ],
-        keywords: ["autonomy boundary", "tool use", "state", "feedback loop", "workflow vs agent", "policy boundary"]
-      },
-      "系统设计与架构": {
-        logic: [
-          "先澄清需求、用户、风险等级和 SLA，再选择 chain、workflow、single agent、graph 或 multi-agent 架构。",
-          "把系统拆成 planner、executor、tool layer、state store、memory、retrieval、guardrails、observability 和 human handoff。",
-          "明确数据流和控制流：谁能调用什么工具、状态如何更新、失败如何恢复、什么时候终止。"
-        ],
-        production: [
-          "生产级答案要包含 idempotency、retry、timeout、checkpoint、resume、audit log、canary 和 rollback。",
-          "不要把 LangGraph、CrewAI 或 AutoGen 当成答案本身，框架只是实现方式；真正重要的是状态机边界和失败处理。",
-          "系统设计题最好主动给出 tradeoff：可靠性 vs 自主性、成本 vs 质量、延迟 vs 多步推理、可观测性 vs 开发速度。"
-        ],
-        keywords: ["planner-executor", "state machine", "LangGraph", "checkpoint", "human handoff", "idempotency", "canary"]
-      },
-      "RAG 与检索": {
-        logic: [
-          "先判断问题是检索失败、排序失败、上下文组织失败，还是生成阶段没有遵守证据。",
-          "把 indexing、chunking、metadata filtering、hybrid retrieval、reranking、context packing 和 citation grounding 分层说明。",
-          "强调 RAG 不是把文档塞给模型，而是一个可评估的信息检索系统加受约束生成系统。"
-        ],
-        production: [
-          "生产环境要有 document version、ACL filter、freshness policy、retrieval eval、answer grounding check 和无答案 fallback。",
-          "高风险领域要禁止 unsupported claims，让每个关键结论绑定 source_id、span 或 citation。",
-          "优秀答案会提到 offline eval 和 online monitoring：recall@k、MRR、nDCG、引用命中率、用户纠错率。"
-        ],
-        keywords: ["hybrid search", "reranking", "metadata filter", "citation grounding", "recall@k", "ACL", "freshness"]
-      },
-      "工具调用、MCP 与环境交互": {
-        logic: [
-          "先说明工具调用是 agent 接触外部世界的边界，因此 schema、权限、错误语义和审计比 prompt 更重要。",
-          "把 tool registry、tool selection、argument validation、executor、policy check、result normalization 分开讲。",
-          "MCP 可以作为工具协议层，但不能替代业务权限、sandbox 和安全审计。"
-        ],
-        production: [
-          "每个工具都应该有 typed schema、risk level、timeout、retry policy、idempotency key 和 structured error。",
-          "高风险工具要支持 dry run、审批和回滚；工具输出要视为 untrusted data，不能让它改写系统指令。",
-          "调试时看 trace：模型为什么选这个工具、参数如何生成、工具返回是否被正确解释。"
-        ],
-        keywords: ["MCP", "tool schema", "executor", "policy check", "sandbox", "structured error", "audit log"]
-      },
-      "Memory、State 与上下文": {
-        logic: [
-          "先区分 state、short-term context、long-term memory 和 external knowledge store，它们的生命周期和信任等级不同。",
-          "说明哪些信息应进入 state，哪些应进入 memory，哪些应从 source of truth 重新读取。",
-          "强调 memory 是有风险的写入系统，需要 provenance、TTL、confidence 和用户确认。"
-        ],
-        production: [
-          "生产系统要能 checkpoint / resume，并记录 state diff、tool result、decision trace 和 side effects。",
-          "长期记忆需要读写策略、污染防控、删除机制和隐私合规；不能把聊天全文无限塞入 prompt。",
-          "测试 memory 的方式是做 A/B 或离线对照，看任务成功率是否提升、幻觉和隐私风险是否下降。"
-        ],
-        keywords: ["state store", "long-term memory", "TTL", "provenance", "checkpoint", "resume", "context window"]
-      },
-      "Evaluation 与 Observability": {
-        logic: [
-          "先说明 final answer accuracy 只是一个指标，agent 还要评估过程质量和行为安全。",
-          "把 eval 拆成 task success、retrieval quality、tool selection、trajectory efficiency、safety compliance、cost 和 latency。",
-          "说明离线 eval、在线监控和人工抽检如何闭环，而不是只跑一次 demo。"
-        ],
-        production: [
-          "生产系统应接入 tracing，记录 prompt、model、tool call、state diff、latency、token、cost、error 和 user feedback。",
-          "回归测试要覆盖正常、边界、恶意、无答案和高风险工具样本；模型或 prompt 更新必须跑 eval gate。",
-          "LLM-as-a-judge 要用 rubric 和人工校准，不能作为唯一真相。"
-        ],
-        keywords: ["trajectory eval", "LangSmith", "Langfuse", "golden set", "LLM-as-a-judge", "regression eval", "tracing"]
-      },
-      "安全、Guardrails 与合规": {
-        logic: [
-          "先把风险分类：prompt injection、data exfiltration、越权工具调用、敏感信息泄露、不可逆副作用。",
-          "再说明多层防护：prompt policy、input/output filter、tool executor guard、permission model、human approval、audit log。",
-          "强调安全不能只靠模型自律，必须在系统边界做硬约束。"
-        ],
-        production: [
-          "高风险工具要默认 dry run，执行前展示参数、影响范围和回滚策略，并要求人工确认。",
-          "所有工具输出都应视为不可信输入，尤其是网页、邮件、文档和工单里的隐藏指令。",
-          "合规场景要考虑 PII 脱敏、数据驻留、日志保留、访问控制和审计追踪。"
-        ],
-        keywords: ["prompt injection", "data exfiltration", "guardrails", "policy layer", "human-in-the-loop", "audit", "PII"]
-      },
-      "成本、性能与可靠性": {
-        logic: [
-          "先用 tracing 找瓶颈，再按模型调用、检索、工具、网络和前端等待拆解延迟与成本。",
-          "说明哪些步骤可以 deterministic，哪些要用小模型，哪些必须保留强模型。",
-          "把可靠性设计成预算、重试、超时、降级、缓存、熔断和回滚的组合。"
-        ],
-        production: [
-          "每个 session 应有 token budget、tool budget、step limit、timeout 和 cost attribution。",
-          "对 expensive tool、long-running task 和 multi-agent loop 要有 runaway detection 和 circuit breaker。",
-          "上线前要做 canary、shadow eval、SLO 监控和快速 rollback，而不是一次性全量发布。"
-        ],
-        keywords: ["token budget", "rate limit", "caching", "circuit breaker", "SLO", "canary", "rollback"]
-      },
-      "Take-home 常见方向": {
-        logic: [
-          "take-home 不只是功能跑通，评分重点是工程完整性：README、架构图、测试、eval、trace、失败案例和 tradeoff。",
-          "先交付一个垂直闭环，再解释你如何把它扩展到生产：权限、监控、成本、安全和可维护性。",
-          "展示代码时要把 prompt、tool schema、eval data 和错误处理当作一等公民。"
-        ],
-        production: [
-          "建议提交包含 demo script、seed data、eval runner、trace screenshots、known limitations 和 next steps。",
-          "如果时间有限，宁可做小而完整的 agent，也不要做功能很多但没有 eval 和 guardrails 的 demo。",
-          "walkthrough 时主动讲第一周可能坏在哪里，以及你会怎么监控和修复。"
-        ],
-        keywords: ["take-home", "README", "eval runner", "trace", "known limitations", "demo script", "walkthrough"]
-      }
-    };
-
-    const keywordGuides = [
+    const answerRules = [
       {
-        test: /MCP|tool|工具|schema|权限|调用/,
+        test: /MCP|tool|工具|schema|权限|调用|API|外部/,
         points: [
-          "把工具层设计成强类型 executor，而不是让模型直接拼任意请求。",
-          "重点说清 tool schema、argument validation、structured error、risk level 和 audit log。",
-          "高风险工具必须有 dry run、人类确认、幂等键和回滚策略。"
+          "工具层要做成受控 executor：先校验 schema 和参数，再检查权限，最后执行工具。不要让模型直接拼任意 HTTP 请求或 SQL。",
+          "工具返回值要结构化，至少包含 status、data、error_code、retryable 和 human_message，方便 agent 判断下一步。",
+          "有副作用的工具要支持 dry run、幂等键、审批和审计日志。"
         ],
-        keywords: ["tool registry", "MCP server", "argument validation", "risk level"]
+        terms: ["tool schema", "executor", "argument validation", "idempotency"]
       },
       {
-        test: /eval|评估|accuracy|trajectory|golden|judge|监控|tracing|drift/,
+        test: /eval|评估|accuracy|trajectory|golden|judge|监控|tracing|drift|测试|回归/,
         points: [
-          "把最终答案、过程轨迹、工具选择、安全合规、成本和延迟分开评估。",
-          "用 golden set 做离线回归，用 traces 和 user feedback 做线上监控。",
-          "LLM judge 必须有 rubric 和人工校准，不能替代硬规则和安全测试。"
+          "不要只报最终答案准确率，要拆成任务成功率、工具选择正确率、参数正确率、无多余步骤率、安全违规率和成本。",
+          "准备 golden set 做离线回归；线上用 trace、用户反馈和失败样本回流更新评测集。",
+          "LLM-as-a-judge 要有 rubric 和人工抽样校准，不能替代权限检查、引用校验这类硬规则。"
         ],
-        keywords: ["offline eval", "online monitoring", "rubric", "trace replay"]
+        terms: ["trajectory eval", "golden set", "LLM-as-a-judge", "trace replay"]
       },
       {
         test: /RAG|检索|chunk|citation|embedding|rerank|文档|context/,
         points: [
-          "先检查 retrieved context 是否包含答案，再判断是检索问题还是生成问题。",
-          "生产 RAG 要使用 metadata filter、hybrid search、reranking 和 citation grounding。",
-          "权限隔离必须进入检索层，不能只在回答阶段过滤。"
+          "先看 top-k context 里有没有答案；没有就是检索或索引问题，有但模型没用才是生成约束问题。",
+          "生产 RAG 通常要 hybrid search + metadata filter + reranker，最后做 citation grounding。",
+          "权限过滤必须在检索阶段完成，不能先取出无权限文档再让模型过滤。"
         ],
-        keywords: ["hybrid retrieval", "reranker", "source_id", "ACL filter"]
+        terms: ["hybrid retrieval", "reranker", "source_id", "ACL filter"]
       },
       {
         test: /安全|prompt injection|guardrail|越权|敏感|审批|合规|policy/,
         points: [
-          "安全边界必须落在 policy layer 和 tool executor，不能只靠 system prompt。",
-          "把外部文档、网页、邮件、工具输出都当作 untrusted input。",
-          "对不可逆或高权限动作使用 human-in-the-loop、audit log 和回滚方案。"
+          "安全控制要落在 policy layer 和 tool executor，system prompt 只能作为软约束。",
+          "网页、邮件、文档、工单和工具输出都要当作 untrusted input，不能让其中的指令覆盖系统策略。",
+          "不可逆或高权限动作必须走 human approval，并记录请求、参数、审批人和执行结果。"
         ],
-        keywords: ["untrusted input", "policy enforcement", "human approval", "audit trail"]
+        terms: ["policy enforcement", "untrusted input", "human approval", "audit trail"]
       },
       {
         test: /成本|延迟|rate|cache|token|性能|可靠|loop|runaway|canary/,
         points: [
-          "先通过 trace 定位成本和延迟来源，再决定缓存、并行、模型降级或流程重构。",
-          "设置 step limit、token budget、tool budget、timeout 和 circuit breaker。",
-          "上线采用 shadow / canary，持续监控 SLO、错误率、成本和用户反馈。"
+          "先用 trace 找出成本和延迟来自模型、检索、工具还是网络，再决定缓存、并行、降级或重构。",
+          "给每个任务设置 step limit、token budget、tool budget、timeout 和 circuit breaker。",
+          "上线用 shadow 或 canary，观察成功率、P95 延迟、单次成本、工具错误率和人工升级率。"
         ],
-        keywords: ["cost attribution", "timeout", "circuit breaker", "shadow traffic"]
+        terms: ["cost attribution", "timeout", "circuit breaker", "SLO"]
       },
       {
         test: /state|memory|上下文|记忆|resume|checkpoint|trajectory/,
         points: [
-          "区分运行时 state、短期上下文、长期 memory 和外部知识库。",
-          "长期 memory 要有来源、置信度、TTL、删除机制和隐私边界。",
-          "长任务需要 checkpoint / resume，避免重复执行有副作用的工具。"
+          "区分运行时 state、短期上下文、长期 memory 和外部知识库，不要把聊天全文都塞进 prompt。",
+          "长期 memory 要保存来源、置信度、TTL 和删除方式，低置信推断不要直接写入。",
+          "长任务要 checkpoint / resume，恢复前先判断上一步是否已经产生外部副作用。"
         ],
-        keywords: ["state diff", "memory TTL", "provenance", "checkpoint"]
+        terms: ["state store", "provenance", "TTL", "checkpoint"]
+      },
+      {
+        test: /multi-agent|多 agent|swarm|planner|executor|LangGraph|graph|编排|系统设计/,
+        points: [
+          "先判断任务是否真的需要多 agent：只有在专业分工、权限隔离、并行执行明显有价值时才拆。",
+          "用显式状态机表达节点、边、终止条件和错误路径，比让多个 agent 自由聊天更可控。",
+          "planner 负责分解任务，executor 负责执行工具，critic 或 verifier 负责检查结果。"
+        ],
+        terms: ["planner-executor", "state machine", "LangGraph", "verifier"]
+      },
+      {
+        test: /take-home|构建|展示|项目|walkthrough|README|demo|作业/,
+        points: [
+          "take-home 要交付可运行 demo、README、架构说明、测试样本和已知限制，不要只提交一段 notebook。",
+          "评审会看错误处理和 eval：至少准备正常、边界、无答案和工具失败样本。",
+          "walkthrough 重点讲取舍和失败：为什么这样设计，第一版哪里不可靠，下一步怎么改。"
+        ],
+        terms: ["README", "eval runner", "known limitations", "walkthrough"]
       }
     ];
+
+    const categoryFallbacks = {
+      "基础定义与岗位理解": ["先给定义，再给边界，最后给一个反例。不要把 agent 说成“更聪明的 chatbot”，要说清它是否有状态、工具和反馈循环。"],
+      "系统设计与架构": ["回答要画出组件：入口、状态、工具层、检索层、执行循环、权限、日志和人工升级。再说明关键 tradeoff。"],
+      "RAG 与检索": ["回答要先定位失败层级：索引、切块、检索、重排、上下文组织还是生成约束。不要直接说“调 prompt”。"],
+      "工具调用、MCP 与环境交互": ["回答要明确工具边界：schema、权限、错误码、重试和审计。MCP 是协议层，不是安全边界。"],
+      "Memory、State 与上下文": ["回答要区分短期 state 和长期 memory，并说明写入条件、过期策略和恢复方式。"],
+      "Evaluation 与 Observability": ["回答要给指标和数据集：任务成功率、工具选择、trajectory、成本、延迟和安全违规率。"],
+      "安全、Guardrails 与合规": ["回答要把软约束和硬约束分开：prompt 是软约束，executor policy、权限和审批才是硬边界。"],
+      "成本、性能与可靠性": ["回答要先说如何度量，再说优化手段。没有 trace 和指标就不要直接下结论。"],
+      "Take-home 常见方向": ["回答要体现交付意识：能跑、可测、可解释、知道限制，并能说明如何生产化。"]
+    };
 
     function escapeHtml(value) {
       return value
@@ -1270,40 +1180,23 @@
     }
 
     function buildProfessionalAnswer(item) {
-      const guide = categoryGuides[item.category];
       const text = `${item.question} ${item.answer}`;
-      const matchedGuides = keywordGuides.filter((guide) => guide.test.test(text));
-      const technicalPoints = unique([
-        ...(guide?.logic || []),
-        ...matchedGuides.flatMap((guide) => guide.points)
-      ]).slice(0, 6);
-      const productionPoints = unique(guide?.production || []).slice(0, 4);
-      const keywords = unique([
-        ...(guide?.keywords || []),
-        ...matchedGuides.flatMap((guide) => guide.keywords)
-      ]).slice(0, 10);
+      const matchedRules = answerRules.filter((rule) => rule.test.test(text));
+      const points = unique([
+        ...matchedRules.flatMap((rule) => rule.points),
+        ...(categoryFallbacks[item.category] || [])
+      ]).slice(0, 3);
+      const terms = unique(matchedRules.flatMap((rule) => rule.terms)).slice(0, 6);
 
       return `
-        <p>${escapeHtml(item.answer)} 面试中不要只给结论，要把它放进生产级 agent 系统的上下文里：目标是什么、系统边界在哪里、失败模式是什么、如何评估、如何观测、如何降级。资深回答的核心是把“不确定的模型行为”转化成“可约束、可测试、可回滚的工程系统”。</p>
+        <p>${escapeHtml(item.answer)}</p>
         <div class="answer-section">
-          <strong>答题逻辑</strong>
+          <strong>回答要点</strong>
           <ul>
-            ${technicalPoints.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
+            ${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
           </ul>
         </div>
-        <div class="answer-section">
-          <strong>生产化补充</strong>
-          <ul>
-            ${productionPoints.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
-          </ul>
-        </div>
-        <div class="answer-section">
-          <strong>面试加分表达</strong>
-          <p>我会主动补一句：这个问题不能只从 prompt 或框架 API 层回答，还要覆盖权限边界、可观测性、评估数据集、错误恢复和成本控制。落地时我会先做最小可测闭环，再用 traces 和 regression eval 逐步扩大自主性，而不是一开始就让 agent 拥有过宽的工具权限。</p>
-        </div>
-        <div class="answer-keywords" aria-label="关键术语">
-          ${keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
-        </div>
+        ${terms.length ? `<div class="answer-keywords" aria-label="关键术语">${terms.map((term) => `<span>${escapeHtml(term)}</span>`).join("")}</div>` : ""}
       `;
     }
 
@@ -1342,7 +1235,7 @@
                   <span class="toggle-icon" aria-hidden="true">+</span>
                 </button>
                 <div class="answer">
-                  <span class="answer-label">资深参考答案</span>
+                  <span class="answer-label">参考答案</span>
                   ${buildProfessionalAnswer(item)}
                 </div>
               </article>
