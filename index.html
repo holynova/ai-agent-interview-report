@@ -8,17 +8,17 @@
   <style>
     :root {
       color-scheme: light;
-      --ink: #171717;
-      --muted: #626262;
-      --line: #d8d4cc;
-      --paper: #f7f4ee;
-      --panel: #fffdf8;
-      --accent: #146c5f;
-      --accent-2: #a43d2b;
-      --accent-3: #2f5f9f;
-      --soft: #ece6d8;
-      --code: #23211e;
-      --shadow: 0 18px 60px rgba(32, 28, 20, 0.12);
+      --ink: #171a1f;
+      --muted: #626a73;
+      --line: #d9dde3;
+      --paper: #f5f7fa;
+      --panel: #ffffff;
+      --accent: #0b6b5d;
+      --accent-2: #344054;
+      --accent-3: #4f6272;
+      --soft: #eef2f5;
+      --code: #18202a;
+      --shadow: 0 18px 50px rgba(20, 30, 42, 0.10);
     }
 
     * {
@@ -27,18 +27,23 @@
 
     html {
       scroll-behavior: smooth;
+      width: 100%;
+      overflow-x: hidden;
+      text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
+      width: 100%;
+      max-width: 100%;
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.65;
+      overflow-x: hidden;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
       color: var(--ink);
       background:
-        linear-gradient(90deg, rgba(20, 108, 95, 0.06) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(20, 108, 95, 0.045) 1px, transparent 1px),
-        var(--paper);
-      background-size: 42px 42px;
+        radial-gradient(circle at top right, rgba(11, 107, 93, 0.10), transparent 34rem),
+        linear-gradient(180deg, #fbfcfd 0%, var(--paper) 42%, #eef2f6 100%);
     }
 
     a {
@@ -51,7 +56,10 @@
     .shell {
       display: grid;
       grid-template-columns: 280px minmax(0, 1fr);
+      width: 100%;
+      max-width: 100vw;
       min-height: 100vh;
+      overflow-x: clip;
     }
 
     nav {
@@ -60,7 +68,7 @@
       height: 100vh;
       padding: 28px 22px;
       border-right: 1px solid var(--line);
-      background: rgba(255, 253, 248, 0.82);
+      background: rgba(255, 255, 255, 0.86);
       backdrop-filter: blur(18px);
       overflow: auto;
     }
@@ -113,7 +121,7 @@
     .toc a {
       display: block;
       padding: 7px 8px;
-      border-radius: 6px;
+      border-radius: 12px;
       color: #35312c;
       text-decoration: none;
       font-size: 13px;
@@ -125,43 +133,49 @@
 
     main {
       min-width: 0;
+      width: 100%;
+      max-width: 100vw;
     }
 
     .hero {
-      min-height: 76vh;
+      min-height: 68vh;
       display: grid;
       align-content: end;
-      padding: 60px clamp(24px, 5vw, 72px) 42px;
+      padding: 64px clamp(22px, 5vw, 72px) 46px;
       border-bottom: 1px solid var(--line);
       background:
-        linear-gradient(180deg, rgba(247, 244, 238, 0.2), rgba(247, 244, 238, 0.95)),
-        repeating-linear-gradient(135deg, rgba(164, 61, 43, 0.1) 0 1px, transparent 1px 18px);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.20), rgba(245, 247, 250, 0.98)),
+        linear-gradient(135deg, rgba(11, 107, 93, 0.13), transparent 42%);
     }
 
     .eyebrow {
       width: fit-content;
-      border: 1px solid var(--ink);
-      background: var(--panel);
-      padding: 6px 9px;
+      max-width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--accent);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 750;
       margin-bottom: 20px;
     }
 
     h1 {
       max-width: 980px;
       margin: 0;
-      font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
-      font-size: clamp(42px, 6vw, 88px);
-      line-height: 0.96;
-      letter-spacing: 0;
+      font-size: clamp(40px, 6vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
     }
 
     .dek {
-      max-width: 840px;
+      max-width: 760px;
       margin: 24px 0 0;
-      color: #302b25;
-      font-size: clamp(17px, 2vw, 23px);
+      color: #39424e;
+      font-size: clamp(17px, 2vw, 22px);
+      text-wrap: pretty;
     }
 
     .meta-row {
@@ -172,12 +186,14 @@
     }
 
     .pill {
+      min-width: 0;
       border: 1px solid var(--line);
-      background: rgba(255, 253, 248, 0.78);
+      background: rgba(255, 255, 255, 0.82);
       padding: 8px 10px;
-      border-radius: 6px;
-      color: #38332d;
+      border-radius: 999px;
+      color: #3c4652;
       font-size: 13px;
+      overflow-wrap: anywhere;
     }
 
     section {
@@ -191,10 +207,10 @@
 
     h2 {
       margin: 0 0 20px;
-      font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
-      font-size: clamp(30px, 4vw, 50px);
-      line-height: 1.05;
-      letter-spacing: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
     }
 
     h3 {
@@ -220,7 +236,7 @@
     .tile {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 16px;
       padding: 18px;
       box-shadow: var(--shadow);
     }
@@ -233,7 +249,7 @@
 
     .tile p,
     .tile li {
-      color: #403b35;
+      color: #3d4651;
       font-size: 14px;
     }
 
@@ -292,7 +308,7 @@
       margin: 24px 0 18px;
       padding: 14px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 16px;
       background: rgba(255, 253, 248, 0.94);
       box-shadow: 0 12px 34px rgba(32, 28, 20, 0.08);
       backdrop-filter: blur(18px);
@@ -302,7 +318,7 @@
       width: 100%;
       min-height: 44px;
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 12px;
       background: #fff;
       color: var(--ink);
       font: inherit;
@@ -326,7 +342,7 @@
     .filter-chip {
       min-height: 36px;
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 12px;
       background: var(--panel);
       color: var(--ink);
       font: inherit;
@@ -393,7 +409,7 @@
 
     .question-card {
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 16px;
       background: var(--panel);
       overflow: hidden;
     }
@@ -414,7 +430,7 @@
     }
 
     .question-toggle:hover {
-      background: #f2eadf;
+      background: var(--soft);
     }
 
     .question-number {
@@ -423,8 +439,8 @@
       width: 42px;
       height: 42px;
       border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #f8f2e8;
+      border-radius: 12px;
+      background: var(--soft);
       font-weight: 900;
       font-size: 13px;
     }
@@ -452,7 +468,7 @@
     .answer {
       display: none;
       padding: 0 16px 18px 82px;
-      color: #342f29;
+      color: #303842;
     }
 
     .question-card.is-open .answer {
@@ -462,11 +478,9 @@
     .answer-label {
       display: inline-block;
       margin: 0 0 8px;
-      color: var(--accent-2);
+      color: var(--accent);
       font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-weight: 800;
     }
 
     .answer p {
@@ -506,9 +520,9 @@
     .answer-keywords button,
     .term {
       border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #f8f2e8;
-      color: #403b35;
+      border-radius: 12px;
+      background: var(--soft);
+      color: #3d4651;
       font: inherit;
       font-size: 12px;
       font-weight: 700;
@@ -548,7 +562,7 @@
       max-width: min(360px, calc(100vw - 28px));
       padding: 14px 15px;
       border: 1px solid #2d2924;
-      border-radius: 8px;
+      border-radius: 16px;
       background: #fffdf8;
       color: var(--ink);
       box-shadow: 0 18px 50px rgba(32, 28, 20, 0.22);
@@ -566,7 +580,7 @@
 
     .term-popover p {
       margin: 0;
-      color: #403b35;
+      color: #3d4651;
       font-size: 13px;
       line-height: 1.55;
     }
@@ -575,7 +589,7 @@
       display: none;
       padding: 22px;
       border: 1px dashed var(--line);
-      border-radius: 8px;
+      border-radius: 16px;
       color: var(--muted);
       background: rgba(255, 253, 248, 0.7);
     }
@@ -583,7 +597,7 @@
     details {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 16px;
       overflow: hidden;
     }
 
@@ -621,7 +635,7 @@
       margin-top: 24px;
       padding: 18px;
       border-left: 5px solid var(--accent-2);
-      background: #fff8ed;
+      background: #ffffff;
       max-width: 920px;
     }
 
@@ -643,7 +657,7 @@
     .footer {
       padding: 32px clamp(24px, 5vw, 72px) 48px;
       background: var(--code);
-      color: #f8f0df;
+      color: #f5f7fa;
     }
 
     .footer pre {
@@ -678,7 +692,7 @@
       background: var(--ink);
       color: #fff;
       border: 1px solid var(--ink);
-      border-radius: 6px;
+      border-radius: 12px;
       padding: 10px 12px;
       font-weight: 800;
       text-decoration: none;
@@ -746,6 +760,213 @@
 
       .answer {
         padding: 0 12px 16px 12px;
+      }
+    }
+
+
+    @media (max-width: 700px) {
+      body {
+        background: #f6f8fb;
+      }
+
+      .shell,
+      main,
+      nav,
+      section,
+      .hero,
+      .footer {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+
+      nav {
+        padding: 16px;
+      }
+
+      .brand {
+        margin-bottom: 14px;
+      }
+
+      .toc-title {
+        margin: 14px 0 8px;
+      }
+
+      .toc {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-bottom: 0;
+        overflow: visible;
+      }
+
+      .toc a {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 0;
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 999px;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .download {
+        width: 100%;
+        justify-content: center;
+        margin-top: 12px;
+        border-radius: 12px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 40px 18px 34px;
+      }
+
+      h1 {
+        font-size: clamp(34px, 11vw, 48px);
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+      }
+
+      .dek {
+        font-size: 17px;
+        line-height: 1.72;
+      }
+
+      .meta-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      section {
+        padding: 34px 16px;
+      }
+
+      h2 {
+        font-size: clamp(26px, 8vw, 34px);
+        line-height: 1.12;
+      }
+
+      p,
+      li,
+      .tile p,
+      .tile li,
+      .source,
+      .answer p {
+        font-size: 15.5px;
+        line-height: 1.78;
+      }
+
+      .lead-grid,
+      .metrics,
+      .prep-grid,
+      .category-grid,
+      .sources {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .tile,
+      details,
+      .source,
+      .question-card,
+      .callout {
+        border-radius: 14px;
+        box-shadow: 0 10px 26px rgba(20, 30, 42, 0.07);
+      }
+
+      .question-toolbar {
+        position: static;
+        padding: 12px;
+        margin: 18px 0 14px;
+        border-radius: 14px;
+      }
+
+      .toolbar-actions {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      .action-button {
+        min-width: 0;
+        padding: 8px 6px;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .question-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 0 12px;
+        padding: 0;
+        overflow: visible;
+      }
+
+      .filter-chip {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 0;
+        white-space: normal;
+        line-height: 1.25;
+      }
+
+      .category-heading {
+        align-items: flex-start;
+      }
+
+      .category-heading h3 {
+        min-width: 0;
+        font-size: 22px;
+        line-height: 1.2;
+      }
+
+      .question-toggle {
+        grid-template-columns: 38px minmax(0, 1fr) 24px;
+        gap: 10px;
+        padding: 14px 12px;
+      }
+
+      .question-number {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+      }
+
+      .question-text {
+        font-size: 15.5px;
+        overflow-wrap: anywhere;
+      }
+
+      .answer {
+        padding: 0 12px 16px;
+      }
+
+      .answer-keywords {
+        gap: 8px;
+      }
+
+      .answer-keywords button,
+      .term {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+
+      .term-popover {
+        left: 12px !important;
+        right: 12px;
+        max-width: calc(100vw - 24px);
+      }
+
+      .footer {
+        padding: 24px 16px 32px;
+      }
+
+      .footer pre {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-size: 12px;
       }
     }
   </style>
@@ -909,7 +1130,7 @@
       <section id="questions">
         <div class="section-inner">
           <h2>102 道具体题目与参考答案</h2>
-          <p>每道题都配了可展开参考答案。默认折叠，适合先自测；需要时再打开答案核对自己的表达是否覆盖边界、架构、失败模式、eval 和生产化。</p>
+          <p>参考答案已压缩为直接可背诵的版本。默认折叠，适合先自测；展开后只保留关键判断、边界和落地要点。</p>
           <div class="question-toolbar" aria-label="题库控制">
             <input id="questionSearch" class="question-search" type="search" placeholder="搜索题目或答案，例如 MCP、eval、RAG、成本" autocomplete="off">
             <div class="toolbar-actions">
@@ -1162,92 +1383,16 @@
       return normalize(`${item.question} ${item.answer} ${item.category}`).includes(query);
     }
 
-    const answerRules = [
-      {
-        test: /MCP|tool|工具|schema|权限|调用|API|外部/,
-        points: [
-          "工具层要做成受控 executor：先校验 schema 和参数，再检查权限，最后执行工具。不要让模型直接拼任意 HTTP 请求或 SQL。",
-          "工具返回值要结构化，至少包含 status、data、error_code、retryable 和 human_message，方便 agent 判断下一步。",
-          "有副作用的工具要支持 dry run、幂等键、审批和审计日志。"
-        ],
-        terms: ["tool schema", "executor", "argument validation", "idempotency"]
-      },
-      {
-        test: /eval|评估|accuracy|trajectory|golden|judge|监控|tracing|drift|测试|回归/,
-        points: [
-          "不要只报最终答案准确率，要拆成任务成功率、工具选择正确率、参数正确率、无多余步骤率、安全违规率和成本。",
-          "准备 golden set 做离线回归；线上用 trace、用户反馈和失败样本回流更新评测集。",
-          "LLM-as-a-judge 要有 rubric 和人工抽样校准，不能替代权限检查、引用校验这类硬规则。"
-        ],
-        terms: ["trajectory eval", "golden set", "LLM-as-a-judge", "trace replay"]
-      },
-      {
-        test: /RAG|检索|chunk|citation|embedding|rerank|文档|context/,
-        points: [
-          "先看 top-k context 里有没有答案；没有就是检索或索引问题，有但模型没用才是生成约束问题。",
-          "生产 RAG 通常要 hybrid search + metadata filter + reranker，最后做 citation grounding。",
-          "权限过滤必须在检索阶段完成，不能先取出无权限文档再让模型过滤。"
-        ],
-        terms: ["hybrid retrieval", "reranker", "source_id", "ACL filter"]
-      },
-      {
-        test: /安全|prompt injection|guardrail|越权|敏感|审批|合规|policy/,
-        points: [
-          "安全控制要落在 policy layer 和 tool executor，system prompt 只能作为软约束。",
-          "网页、邮件、文档、工单和工具输出都要当作 untrusted input，不能让其中的指令覆盖系统策略。",
-          "不可逆或高权限动作必须走 human approval，并记录请求、参数、审批人和执行结果。"
-        ],
-        terms: ["policy enforcement", "untrusted input", "human approval", "audit trail"]
-      },
-      {
-        test: /成本|延迟|rate|cache|token|性能|可靠|loop|runaway|canary/,
-        points: [
-          "先用 trace 找出成本和延迟来自模型、检索、工具还是网络，再决定缓存、并行、降级或重构。",
-          "给每个任务设置 step limit、token budget、tool budget、timeout 和 circuit breaker。",
-          "上线用 shadow 或 canary，观察成功率、P95 延迟、单次成本、工具错误率和人工升级率。"
-        ],
-        terms: ["cost attribution", "timeout", "circuit breaker", "SLO"]
-      },
-      {
-        test: /state|memory|上下文|记忆|resume|checkpoint|trajectory/,
-        points: [
-          "区分运行时 state、短期上下文、长期 memory 和外部知识库，不要把聊天全文都塞进 prompt。",
-          "长期 memory 要保存来源、置信度、TTL 和删除方式，低置信推断不要直接写入。",
-          "长任务要 checkpoint / resume，恢复前先判断上一步是否已经产生外部副作用。"
-        ],
-        terms: ["state store", "provenance", "TTL", "checkpoint"]
-      },
-      {
-        test: /multi-agent|多 agent|swarm|planner|executor|LangGraph|graph|编排|系统设计/,
-        points: [
-          "先判断任务是否真的需要多 agent：只有在专业分工、权限隔离、并行执行明显有价值时才拆。",
-          "用显式状态机表达节点、边、终止条件和错误路径，比让多个 agent 自由聊天更可控。",
-          "planner 负责分解任务，executor 负责执行工具，critic 或 verifier 负责检查结果。"
-        ],
-        terms: ["planner-executor", "state machine", "LangGraph", "verifier"]
-      },
-      {
-        test: /take-home|构建|展示|项目|walkthrough|README|demo|作业/,
-        points: [
-          "take-home 要交付可运行 demo、README、架构说明、测试样本和已知限制，不要只提交一段 notebook。",
-          "评审会看错误处理和 eval：至少准备正常、边界、无答案和工具失败样本。",
-          "walkthrough 重点讲取舍和失败：为什么这样设计，第一版哪里不可靠，下一步怎么改。"
-        ],
-        terms: ["README", "eval runner", "known limitations", "walkthrough"]
-      }
+    const answerTermRules = [
+      { test: /MCP|tool|工具|schema|权限|调用|API|外部/, terms: ["tool schema", "executor", "argument validation", "idempotency"] },
+      { test: /eval|评估|accuracy|trajectory|golden|judge|监控|tracing|drift|测试|回归/, terms: ["trajectory eval", "golden set", "LLM-as-a-judge", "trace replay"] },
+      { test: /RAG|检索|chunk|citation|embedding|rerank|文档|context/, terms: ["hybrid retrieval", "reranker", "source_id", "ACL filter"] },
+      { test: /安全|prompt injection|guardrail|越权|敏感|审批|合规|policy/, terms: ["policy enforcement", "untrusted input", "human approval", "audit trail"] },
+      { test: /成本|延迟|rate|cache|token|性能|可靠|loop|runaway|canary/, terms: ["cost attribution", "timeout", "circuit breaker", "SLO"] },
+      { test: /state|memory|上下文|记忆|resume|checkpoint|trajectory/, terms: ["state store", "provenance", "TTL", "checkpoint"] },
+      { test: /multi-agent|多 agent|swarm|planner|executor|LangGraph|graph|编排|系统设计/, terms: ["planner-executor", "state machine", "LangGraph", "verifier"] },
+      { test: /take-home|构建|展示|项目|walkthrough|README|demo|作业/, terms: ["README", "eval runner", "known limitations", "walkthrough"] }
     ];
-
-    const categoryFallbacks = {
-      "基础定义与岗位理解": ["先给定义，再给边界，最后给一个反例。不要把 agent 说成“更聪明的 chatbot”，要说清它是否有状态、工具和反馈循环。"],
-      "系统设计与架构": ["回答要画出组件：入口、状态、工具层、检索层、执行循环、权限、日志和人工升级。再说明关键 tradeoff。"],
-      "RAG 与检索": ["回答要先定位失败层级：索引、切块、检索、重排、上下文组织还是生成约束。不要直接说“调 prompt”。"],
-      "工具调用、MCP 与环境交互": ["回答要明确工具边界：schema、权限、错误码、重试和审计。MCP 是协议层，不是安全边界。"],
-      "Memory、State 与上下文": ["回答要区分短期 state 和长期 memory，并说明写入条件、过期策略和恢复方式。"],
-      "Evaluation 与 Observability": ["回答要给指标和数据集：任务成功率、工具选择、trajectory、成本、延迟和安全违规率。"],
-      "安全、Guardrails 与合规": ["回答要把软约束和硬约束分开：prompt 是软约束，executor policy、权限和审批才是硬边界。"],
-      "成本、性能与可靠性": ["回答要先说如何度量，再说优化手段。没有 trace 和指标就不要直接下结论。"],
-      "Take-home 常见方向": ["回答要体现交付意识：能跑、可测、可解释、知道限制，并能说明如何生产化。"]
-    };
 
     const termDefinitions = {
       "ACL filter": "Access Control List filter，访问控制过滤。检索或查询时先按用户权限过滤数据，避免模型看到无权访问的内容。",
@@ -1312,12 +1457,6 @@
       return [...new Set(values)];
     }
 
-    function joinReadable(sentences) {
-      if (!sentences.length) return "";
-      if (sentences.length === 1) return sentences[0];
-      if (sentences.length === 2) return `${sentences[0]} ${sentences[1]}`;
-      return `${sentences[0]} ${sentences[1]} ${sentences[2]}`;
-    }
 
     function annotateTerms(text, terms) {
       let output = escapeHtml(text);
@@ -1336,27 +1475,17 @@
 
     function buildProfessionalAnswer(item) {
       const text = `${item.question} ${item.answer}`;
-      const matchedRules = answerRules.filter((rule) => rule.test.test(text));
-      const points = unique([
-        ...matchedRules.flatMap((rule) => rule.points),
-        ...(categoryFallbacks[item.category] || [])
-      ]).slice(0, 3);
-      const rawAnswer = `${item.answer} ${points.join(" ")}`;
-      const detectedTerms = Object.keys(termDefinitions).filter((term) => rawAnswer.includes(term));
+      const matchedRules = answerTermRules.filter((rule) => rule.test.test(text));
+      const detectedTerms = Object.keys(termDefinitions).filter((term) => text.includes(term));
       const terms = unique([
-        ...matchedRules.flatMap((rule) => rule.terms),
-        ...detectedTerms
-      ]).slice(0, 8);
+        ...detectedTerms,
+        ...matchedRules.flatMap((rule) => rule.terms)
+      ]).slice(0, 5);
       const mainAnswer = annotateTerms(item.answer, terms);
-      const followUp = annotateTerms(joinReadable(points), terms);
 
       return `
         <p>${mainAnswer}</p>
-        <div class="answer-section">
-          <strong>补充说明</strong>
-          <p>${followUp}</p>
-        </div>
-        ${terms.length ? `<div class="answer-keywords" aria-label="关键术语">${terms.map((term) => `<button type="button" data-term="${escapeHtml(term)}">${escapeHtml(term)}</button>`).join("")}</div>` : ""}
+        ${terms.length ? `<div class="answer-keywords" aria-label="相关术语">${terms.map((term) => `<button type="button" data-term="${escapeHtml(term)}">${escapeHtml(term)}</button>`).join("")}</div>` : ""}
       `;
     }
 
@@ -1395,7 +1524,7 @@
                   <span class="toggle-icon" aria-hidden="true">+</span>
                 </button>
                 <div class="answer">
-                  <span class="answer-label">参考答案</span>
+                  <span class="answer-label">简答</span>
                   ${buildProfessionalAnswer(item)}
                 </div>
               </article>
