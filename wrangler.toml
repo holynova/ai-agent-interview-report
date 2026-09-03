@@ -1,0 +1,5 @@
+name = "ai-agent-interview-report"
+compatibility_date = "2026-09-04"
+
+[assets]
+directory = "."
